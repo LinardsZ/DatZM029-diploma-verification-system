@@ -32,7 +32,6 @@ type Credential struct {
 
 type DiplomaMetadata struct {
 	UniversityName string `json:"universityName"`
-	StudentName    string `json:"studentName"`
 	DegreeName     string `json:"degreeName"`
 	IssueDate      string `json:"issueDate"`
 	ExpiryDate     string `json:"expiryDate"`
@@ -49,7 +48,6 @@ func (s *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) 
 			IssuerPublicKey:   "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA5678...",
 			DiplomaMetadata: DiplomaMetadata{
 				UniversityName: "MIT",
-				StudentName:    "Tomoko Yamada",
 				DegreeName:     "Bachelor of Science in Computer Science",
 				IssueDate:      "2024-06-15",
 				ExpiryDate:     "",
@@ -65,7 +63,6 @@ func (s *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) 
 			IssuerPublicKey:   "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6789...",
 			DiplomaMetadata: DiplomaMetadata{
 				UniversityName: "Stanford University",
-				StudentName:    "Brad Chen",
 				DegreeName:     "Master of Business Administration",
 				IssueDate:      "2024-05-20",
 				ExpiryDate:     "",
@@ -81,7 +78,6 @@ func (s *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) 
 			IssuerPublicKey:   "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7890...",
 			DiplomaMetadata: DiplomaMetadata{
 				UniversityName: "Seoul National University",
-				StudentName:    "Jin Soo Park",
 				DegreeName:     "Doctor of Philosophy in Physics",
 				IssueDate:      "2024-08-10",
 				ExpiryDate:     "",
@@ -106,7 +102,6 @@ func (s *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) 
 	return nil
 }
 
-// CreateCredential issues a new credential to the world state with given details.
 // CreateCredential issues a new credential to the world state with given details.
 func (s *SmartContract) CreateCredential(ctx contractapi.TransactionContextInterface, credentialJSON string) error {
 	var credential Credential
@@ -196,29 +191,6 @@ func (s *SmartContract) CredentialExists(ctx contractapi.TransactionContextInter
 
 	return credentialJSON != nil, nil
 }
-
-// TransferCredential updates the owner field of credential with given id in world state, and returns the old owner.
-// func (s *SmartContract) TransferCredential(ctx contractapi.TransactionContextInterface, id string, newOwner string) (string, error) {
-// 	credential, err := s.ReadCredential(ctx, id)
-// 	if err != nil {
-// 		return "", err
-// 	}
-
-// 	oldOwner := credential.Owner
-// 	credential.Owner = newOwner
-
-// 	credentialJSON, err := json.Marshal(credential)
-// 	if err != nil {
-// 		return "", err
-// 	}
-
-// 	err = ctx.GetStub().PutState(id, credentialJSON)
-// 	if err != nil {
-// 		return "", err
-// 	}
-
-// 	return oldOwner, nil
-// }
 
 // GetAllAssets returns all assets found in world state
 func (s *SmartContract) GetAllCredentials(ctx contractapi.TransactionContextInterface) ([]*Credential, error) {

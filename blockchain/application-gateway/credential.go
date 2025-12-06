@@ -18,11 +18,11 @@ import (
 
 const (
 	mspID        = "Org1MSP"
-	cryptoPath   = "../../test-network/organizations/peerOrganizations/org1.example.com"
+	cryptoPath   = "../test-network/organizations/peerOrganizations/org1.example.com"
 	certPath     = cryptoPath + "/users/User1@org1.example.com/msp/signcerts"
 	keyPath      = cryptoPath + "/users/User1@org1.example.com/msp/keystore"
 	tlsCertPath  = cryptoPath + "/peers/peer0.org1.example.com/tls/ca.crt"
-	peerEndpoint = "dns:///localhost:7051"
+	peerEndpoint = "localhost:7051"
 	gatewayPeer  = "peer0.org1.example.com"
 )
 
@@ -55,7 +55,7 @@ func main() {
 	defer gw.Close()
 
 	// Override default values for chaincode and channel name as they may differ in testing contexts.
-	chaincodeName := "basic"
+	chaincodeName := "diploma"
 	if ccname := os.Getenv("CHAINCODE_NAME"); ccname != "" {
 		chaincodeName = ccname
 	}
@@ -193,7 +193,6 @@ type Credential struct {
 
 type DiplomaMetadata struct {
 	UniversityName string `json:"universityName"`
-	StudentName    string `json:"studentName"`
 	DegreeName     string `json:"degreeName"`
 	IssueDate      string `json:"issueDate"`
 	ExpiryDate     string `json:"expiryDate"`
@@ -211,7 +210,6 @@ func CreateCredential(contract *client.Contract) {
 		IssuerPublicKey:   "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA8901...",
 		DiplomaMetadata: DiplomaMetadata{
 			UniversityName: "Harvard University",
-			StudentName:    "Tom Anderson",
 			DegreeName:     "Bachelor of Arts in Economics",
 			IssueDate:      "2024-12-06",
 			ExpiryDate:     "",
