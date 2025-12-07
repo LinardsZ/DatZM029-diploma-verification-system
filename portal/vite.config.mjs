@@ -18,10 +18,10 @@ import { devServerSettings } from './vite.config.server.mjs';
 dns.setDefaultResultOrder('ipv4first');
 
 const CONFIG = {
-  appName: '$REPO_NAME',
+  appName: 'Blockchain',
   appDescription: '$REPO_DESCRIPTION',
   defaultUrl: 'https://localhost:44341/',
-  defaultClient: '$REPO_NAME_LOWER',
+  defaultClient: 'blockchain',
 };
 
 const getEnvVariables = (mode, serving) => {
@@ -52,14 +52,18 @@ const getEnvVariables = (mode, serving) => {
     envVariables.VUE_APP_AUTH_URL = '/idauth/';
     envVariables.VUE_APP_AUTH_URL_PROXY = env.AUTH_URL;
     envVariables.USE_MOCK_MIDDLEWARE = env.USE_MOCK_MIDDLEWARE === 'true';
-    envVariables.VUE_APP_CLIENT_ID = envVariables.VUE_APP_CLIENT_ID || CONFIG.defaultClient;
+    envVariables.VUE_APP_CLIENT_ID =
+      envVariables.VUE_APP_CLIENT_ID || CONFIG.defaultClient;
   } else {
     envVariables.VUE_APP_ENVIRONMENT = '{{ENVIRONMENT}}';
-    envVariables.VUE_APP_SERVICE_URL = envVariables.VUE_APP_SERVICE_URL || '{{SERVICE_URL}}';
-    envVariables.VUE_APP_AUTH_URL = envVariables.VUE_APP_AUTH_URL || '{{AUTH_URL}}';
+    envVariables.VUE_APP_SERVICE_URL =
+      envVariables.VUE_APP_SERVICE_URL || '{{SERVICE_URL}}';
+    envVariables.VUE_APP_AUTH_URL =
+      envVariables.VUE_APP_AUTH_URL || '{{AUTH_URL}}';
     envVariables.BASE_PATH = envVariables.BASE_PATH || '//BASE_PATH//';
     envVariables.BASE_URL = envVariables.BASE_URL || '{{PUBLIC_URL}}';
-    envVariables.VUE_APP_CLIENT_ID = envVariables.VUE_APP_CLIENT_ID || CONFIG.defaultClient;
+    envVariables.VUE_APP_CLIENT_ID =
+      envVariables.VUE_APP_CLIENT_ID || CONFIG.defaultClient;
   }
   return envVariables;
 };
@@ -69,7 +73,8 @@ const getEnvVariables = (mode, serving) => {
  * @description https://vitejs.dev/config/
  */
 export default defineConfig((command) => {
-  const serving = command?.command === 'serve' && command?.mode === 'development';
+  const serving =
+    command?.command === 'serve' && command?.mode === 'development';
   const envVariables = getEnvVariables(command.mode, serving);
   return {
     base: envVariables.BASE_PATH,
@@ -77,7 +82,7 @@ export default defineConfig((command) => {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
         '/lx-fonts': fileURLToPath(
-          new URL('./node_modules/@wntr/lx-ui/dist/lx-fonts', import.meta.url)
+          new URL('./node_modules/@wntr/lx-ui/dist/lx-fonts', import.meta.url),
         ),
       },
     },

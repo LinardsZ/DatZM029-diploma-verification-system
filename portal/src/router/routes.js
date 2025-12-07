@@ -33,6 +33,22 @@ const routes = [
         component: () => import('@/views/Dashboard.vue'),
       },
       {
+        path: '/new-credential',
+        name: 'newCredential',
+        meta: {
+          title: 'pages.newCredential.title',
+        },
+        component: () => import('@/views/organizations/NewCredential.vue'),
+      },
+      {
+        path: '/verification',
+        name: 'verification',
+        meta: {
+          title: 'pages.verification.title',
+        },
+        component: () => import('@/views/Verification.vue'),
+      },
+      {
         path: '/auth-done',
         name: 'authDone',
         component: () => import('@/views/AuthDone.vue'),

@@ -2,8 +2,9 @@
 import { computed, ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
-import { LxShell, LxSiteMap, LxIcon } from '@wntr/lx-ui';
+import { LxShell, LxIcon } from '@wntr/lx-ui';
 import { invoke, until, useIdle, useIntervalFn } from '@vueuse/core';
+import { SYSTEM_NAME } from '@/constants';
 
 import LoginView from '@/views/Login.vue';
 import useErrors from '@/hooks/useErrors';
@@ -107,6 +108,18 @@ const selectedNavItems = computed(() => {
   return ret;
 });
 
+const selectedLanguage = ref({ id: 'lv', name: t('shell.languages.lv') });
+const languages = computed(() => [
+  { id: 'lv', name: t('shell.languages.lv') },
+  { id: 'en', name: t('shell.languages.en') },
+]);
+
+function changeLang(value) {
+  i18n.locale.value = value.id;
+  selectedLanguage.value = value;
+  localStorage.setItem(`${SYSTEM_NAME}-locale`, value.id);
+}
+
 function goBack(path) {
   if (path !== -1) {
     router.push(path);
@@ -119,6 +132,10 @@ function goHome(path) {
 }
 
 onMounted(() => {
+  const res = localStorage.getItem(`${SYSTEM_NAME}-locale`);
+  if (res) {
+    changeLang(languages.value.find((x) => x.id === res));
+  }
   if (authStore.session.active) {
     authStore.keepAlive();
   }
@@ -300,6 +317,10 @@ function idleModalSecondary() {
         :cover-image="null"
         :cover-image-dark="null"
         :cover-logo="null"
+        :has-theme-picker="true"
+        :has-language-picker="true"
+        :languages="languages"
+        :selected-language="selectedLanguage"
         :navigating="appStore.$state.isNavigating"
         :showIdleModal="idleModalOpened"
         :showIdleBadge="
@@ -315,6 +336,7 @@ function idleModalSecondary() {
         :hideNavBar="!viewStore?.isNavBarShown"
         :headerNavDisable="viewStore.blockNav"
         :hideHeaderText="!viewStore?.isHeaderShown"
+        @update:selected-language="changeLang"
         @confirmModalClosed="confirmModalClosed"
         @go-home="goHome"
         @go-back="goBack"
@@ -327,7 +349,7 @@ function idleModalSecondary() {
         </template>
         <template #coverArea>
           <div class="lx-button-set">
-            <LoginView></LoginView>
+            <LoginView />
           </div>
         </template>
         <template #footer>
@@ -341,20 +363,13 @@ function idleModalSecondary() {
                 {{ i18n.t("title.subheader") }}
               </div>
             </div>
-            <div class="footer-sitemap-item">
-              <LxSiteMap
-                :routes="routes"
-                category="useful"
-                label="Noderīgi"
-                :translator="t"
-              />
-            </div>
             <div class="footer-sitemap-right">
               <p class="footer-sitemap-text">
-                Portāls paredzēts diplomu un sertifikātu verificēšanai un
-                pārbaudīšanai
+                {{ i18n.t("shell.footer.footerText") }}
               </p>
-              <p class="footer-sitemap-text">Versija 0.1.11 20.12.2022</p>
+              <p class="footer-sitemap-text">
+                {{ i18n.t("shell.footer.versionText") }} 0.1.11 20.12.2022
+              </p>
             </div>
           </div>
         </template>

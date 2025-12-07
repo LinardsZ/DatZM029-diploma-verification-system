@@ -10,12 +10,11 @@ export const APP_CONFIG = {
   // @ts-ignore
   environment: window.config.environment,
   defaultLocale: 'lv',
-  supportedLocales: ['lv'],
-  fallbackLocale: 'lv',
+  supportedLocales: ['lv', 'en'],
+  fallbackLocale: 'en',
 };
 
-export const AUTH_KEY_TOKEN_SESSION = '$REPO_NAME_LOWER-sessionkey';
-export const SYSTEM_NAME = '$REPO_NAME_LOWER';
-
+export const AUTH_KEY_TOKEN_SESSION = 'blockchain-sessionkey';
+export const SYSTEM_NAME = 'blockchain';
 export const AUTH_SCOPE = 'vpm';
 export const AUTH_TYPE = 'VPM';
