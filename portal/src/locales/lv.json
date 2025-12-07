@@ -1,0 +1,79 @@
+{
+  "title": {
+    "prefix": "",
+    "fullName": "Blokķēdes",
+    "subheader": "Dokumentu verifikācijas sistēma",
+    "shortName": "Blokķēdes",
+    "default": "Blokķēdes"
+  },
+  "shell": {
+    "notifications": {
+      "logOut": "Jūsu sesija ir veiksmīgi pabeigta",
+      "unknownState": "Notika kļūda lietotāja statusa apstrādē",
+      "sessionContinued": "Sesija veiksmīgi pagarināta",
+      "sessionContinuedFailed": "Sesijas pagarināšana nav izdevusies",
+      "sessionEndingSoon": "Jūsu sesija drīz beigsies",
+      "logoutConfirm": "Vai tiešām vēlaties iziet?",
+      "logoutConfirmYes": "Jā",
+      "logoutConfirmNo": "Nē",
+      "logoutConfirmTitle": "Iziet"
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "Blokķēdes",
+      "buttons": {
+        "loginAuthorized": "Iet uz sākumu",
+        "loginUnauthorized": "Autorizēties"
+      }
+    },
+    "sessionTimeout": {
+      "title": "Jūsu sesija ir beigusies",
+      "description": "Sesijas atvēlētais laiks ir beidzies. Lai turpinātu darbu, ienāciet sistēmā atkārtoti"
+    },
+    "dashboard": {
+      "title": "Sākums"
+    },
+    "login": {
+      "title": "Autorizācija"
+    },
+    "userAgreement": {},
+    "users": {},
+    "error": {
+      "goBack": "Atgriezties atpakaļ",
+      "goHome": "Atgriezties uz sākumu",
+      "title": "Notika negaidīta kļūda",
+      "authorizeButton": "Autorizēties"
+    },
+    "auth": {
+      "title": "Notiek apstrāde",
+      "description": "Notiek apstrāde. Lūdzu, uzgaidiet!",
+      "errors": {
+        "unknownTitle": "Nezināma autorizācijas kļūda",
+        "unknownDescription": "Mēģiniet veikt atkārtotu autorizāciju.",
+        "blockedTitle": "Lietotājs ir bloķēts",
+        "blockedDescription": "Sazinieties ar sistēmas administratoru.",
+        "invalidRightsTitle": "Jums nav piešķirtas tiesības lietot šo sistēmu",
+        "invalidRightsDescription": "Sazinieties ar sistēmas administratoru.",
+        "invalidRequestTitle": "Kļūdains autorizācijas pieprasījums",
+        "invalidRequestDescription": "Mēģiniet veikt atkārtotu autorizāciju."
+      }
+    },
+    "siteMap": {
+      "title": "Lapas karte",
+      "description": "Navigācijas rīks, kas attēlo pieejamo sadaļu un apakšsadaļu pārskatu, nodrošinot vienkāršu un ērtu piekļuvi nepieciešamajai informācijai",
+      "top3Routes": "Top 3 maršruti"
+    }
+  },
+  "errors": {
+    "forbidden": "Jums nav tiesību veikt šo darbību!",
+    "loadFailed": "Neizdevās ielādēt datus",
+    "logoutFailed": "Radās kļūda, veicot atteikšanos no sistēmas, pārlādējiet lapu un mēģiniet atkārtoti.",
+    "helpLoadFailed": "Neizdevās ielādēt palīdzības informāciju",
+    "networkError": "Tīkla kļūda. Neizdevās izveidot savienojumu ar serveri. Lūdzu, pārbaudiet savu interneta savienojumu un mēģiniet vēlreiz!",
+    "http304": "Neizdevās mainīt datus. Mēģiniet vēlreiz!",
+    "http400": "Kļūda pieprasījumā. Pārbaudiet datus un mēģiniet vēlreiz!",
+    "http422": "Problēma pieprasījuma izpildē",
+    "http500": "Notika iekšējā servera problēma"
+  }
+}
