@@ -1,0 +1,8 @@
+node_modules
+.DS_Store
+dist
+*.local
+pnpm-error.log
+.env
+.pnpm-store
+eslint-report.json

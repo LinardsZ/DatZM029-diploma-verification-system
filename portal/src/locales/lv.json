@@ -1,0 +1,214 @@
+{
+  "title": {
+    "prefix": "",
+    "fullName": "Blokķēdes",
+    "subheader": "Dokumentu verifikācijas sistēma",
+    "shortName": "Blokķēdes",
+    "default": "Blokķēdes"
+  },
+  "shell": {
+    "notifications": {
+      "logOut": "Jūsu sesija ir veiksmīgi pabeigta",
+      "unknownState": "Notika kļūda lietotāja statusa apstrādē",
+      "sessionContinued": "Sesija veiksmīgi pagarināta",
+      "sessionContinuedFailed": "Sesijas pagarināšana nav izdevusies",
+      "sessionEndingSoon": "Jūsu sesija drīz beigsies",
+      "logoutConfirm": "Vai tiešām vēlaties iziet?",
+      "logoutConfirmYes": "Jā",
+      "logoutConfirmNo": "Nē",
+      "logoutConfirmTitle": "Iziet"
+    },
+    "languages": {
+      "lv": "Latviešu",
+      "en": "Angļu (English)"
+    },
+    "footer": {
+      "footerText": "Portāls paredzēts diplomu un sertifikātu verificēšanai un pārbaudīšanai",
+      "versionText": "Versija"
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "Blokķēdes",
+      "buttons": {
+        "loginAuthorized": "Iet uz sākumu",
+        "loginUnauthorized": "Autorizēties"
+      }
+    },
+    "sessionTimeout": {
+      "title": "Jūsu sesija ir beigusies",
+      "description": "Sesijas atvēlētais laiks ir beidzies. Lai turpinātu darbu, ienāciet sistēmā atkārtoti"
+    },
+    "dashboard": {
+      "title": "Sākums"
+    },
+    "newCredential": {
+      "title": "Jauns dokuments",
+      "form": {
+        "universityName": "Iestādes nosaukums",
+        "degreeName": "Dokumenta nosaukums",
+        "issueDate": "Izdošanas datums",
+        "expiryDate": "Beigu datums",
+        "status": "Statuss",
+        "credentialType": "Dokumenta tips",
+        "degreeFile": "Dokumenta datne",
+        "valid": "Derīgs",
+        "invalid": "Nederīgs",
+        "diploma": "Diploms",
+        "certificate": "Sertifikāts",
+        "save": "Saglabāt",
+        "cancel": "Atcelt",
+        "documentCreated": "Dokuments veiksmīgi pievienots",
+        "creationFailed": "Notika kļūda. Mēģiniet vēlreiz",
+
+        "id": "ID",
+        "graduatePublicKey": "GraduatePublicKey",
+        "issuerSignature": "IssuerSignature",
+        "issuerPublicKey": "IssuerPublicKey"
+
+        
+      }
+    },
+
+    "verification": {
+      "title": "Dokumentu verifikācija",
+      "verify": "Verificēt",
+      "successLabel": "Verifikācija izdevās",
+      "successDescription": "Datne atrasta blokķēdē. Šāds dokuments eksistē",
+      "errorLabel": "Verifikācija neizdevās",
+      "errorDescription": "Datne netika atrasta. Šāds dokuments neeksitē",
+      "reset": "Verificēt citu dokumentu",
+      "fileUploader": {
+        "clear": "Notīrīt",
+        "buttonLabel": "Izvēlēties datni",
+        "uploaderDescription": "",
+        "draggablePlaceholder": "Ievelciet datnes, vai nospiediet šeit, lai augšupielādētu",
+        "placeholder": "Ievadiet nosaukuma vai apraksta daļu, lai sameklētu ierakstus",
+        "notFoundSearch": "Nav atrasts:",
+        "close": "Aizvērt",
+        "noItems": "Nav pievienota neviena datne",
+        "infoButton": "Skatīt detaļas",
+        "download": "Lejupielādēt",
+        "addPhoto": "Pievienot attēlu",
+        "savePicture": "Saglabāt",
+        "cancelAndClose": "Atcelt",
+        "errorLabel": "Notika kļūda",
+        "errorDescription": "Nav piešķirta atļauja izmantot kameru",
+        "reloadPage": "Pārlādēt lapu",
+        "changeCamera": "Mainīt kameru",
+        "takePhoto": "Uzņemt attēlu",
+        "deletePhoto": "Mēģināt vēlreiz",
+        "useCamera": "Izmantot kameru",
+        "metaPreviewLabel": "Priekšskatījums",
+        "metaPreviewDescription": "priekšskatījums",
+        "metaMainLabel": "Galvenie dati",
+        "metaMainAuthor": "Autors",
+        "metaMainFormat": "Formāts",
+        "metaMainImageDimensions": "Attēla dimensijas",
+        "metaMainLastModified": "Pēdējās izmaiņas",
+        "metaMainDateCreated": "Izveides datums",
+        "metaMainDataSize": "Datnes izmērs",
+        "metaAdditionalLabel": "Visi dati",
+        "metaLocationLabel": "Atrašanās vietas dati",
+        "metaLocationLatitude": "Platuma grādi",
+        "metaLocationLongitude": "Garuma grādi",
+        "metaLocationAltitude": "Augstums",
+        "metaImageLabel": "Attēla dati",
+        "metaImageWidth": "Attēla platums",
+        "metaImageHeight": "Attēla augstums",
+        "metaImageHorizontalResolution": "Horizontālā izšķirtspēja",
+        "metaImageVerticalResolution": "Vertikālā izšķirtspēja",
+        "metaImageCopyright": "Autortiesības",
+        "metaCameraBrand": "Kameras ražotājs",
+        "metaCameraModel": "Kameras modelis",
+        "metaFocusLength": "Fokusa attālums",
+        "metaFStop": "F-stop",
+        "metaExposure": "Expizīcija",
+        "metaISO": "ISO",
+        "metaExposureBias": "Ekspozīcijas nobīde",
+        "metaFlash": "Zibspuldzes iestatījums",
+        "metaColorSpace": "Krāsu telpa",
+        "metaDateTime": "Datums un laiks",
+        "metaArchiveContentLabel": "Arhīva saturs",
+        "metaAdditionalInfoSizeTitle": "Izmērs",
+        "metaAdditionalInfoExtensionTitle": "Paplašinājums",
+        "metaAdditionalInfoResolutionTitle": "Izšķirtspēja",
+        "metaAdditionalInfoFileCountTitle": "Datņu skaits",
+        "metaAdditionalInfoFileCountLabelSingle": "datne",
+        "metaAdditionalInfoFileCountLabelMulti": "datnes",
+        "metaAdditionalInfoProtectedArchive": "Arhīvs aizargāts ar paroli",
+        "metaAdditionalInfoPageCountTitle": "Lappušu skaits",
+        "metaAdditionalInfoSlideCountTitle": "Slaidu skaits",
+        "metaAdditionalInfoPageCountLabelSingle": "lappuse",
+        "metaAdditionalInfoPageCountLabelMulti": "lappuses",
+        "metaAdditionalInfoSlideCountLabelSingle": "slaids",
+        "metaAdditionalInfoSlideCountLabelMulti": "slaidi",
+        "metaAdditionalInfoeSigned": "Dokuments parakstīts ar drošu elektronisko parakstu",
+        "metaAdditionalInfoc2paSigned": "Datne parakstīta ar c2pa elektronisko parakstu",
+        "metaAdditionalInfoAiCreated": "Veidots izmantojot mākslīgo intelektu",
+        "metaMainTitle": "Virsraksts",
+        "metaMainDescription": "Apraksts",
+        "metaEDocContentLabel": "Paraksti",
+        "metaEdocArchiveContentLabel": "Saturs"
+      },
+      "dateTimePicker": {
+        "clear": "Attīrīt",
+        "todayButton": "Atgriezties uz šodienu",
+        "clearButton": "Attīrīt vērtību",
+        "next": "Nākamais",
+        "previous": "Iepriekšējais",
+        "nextMonth": "Nākamais mēnesis",
+        "previousMonth": "Iepriekšējais mēnesis",
+        "nextYear": "Nākamais gads",
+        "previousYear": "Iepriekšējais gads",
+        "nextDecade": "Nākamā dekāde",
+        "previousDecade": "Iepriekšējā dekāde",
+        "scrollUp": "Ritināt uz augšu",
+        "scrollDown": "Ritināt uz leju"
+      }
+    },
+    
+
+    "login": {
+      "title": "Autorizācija"
+    },
+    "userAgreement": {},
+    "users": {},
+    "error": {
+      "goBack": "Atgriezties atpakaļ",
+      "goHome": "Atgriezties uz sākumu",
+      "title": "Notika negaidīta kļūda",
+      "authorizeButton": "Autorizēties"
+    },
+    "auth": {
+      "title": "Notiek apstrāde",
+      "description": "Notiek apstrāde. Lūdzu, uzgaidiet!",
+      "errors": {
+        "unknownTitle": "Nezināma autorizācijas kļūda",
+        "unknownDescription": "Mēģiniet veikt atkārtotu autorizāciju.",
+        "blockedTitle": "Lietotājs ir bloķēts",
+        "blockedDescription": "Sazinieties ar sistēmas administratoru.",
+        "invalidRightsTitle": "Jums nav piešķirtas tiesības lietot šo sistēmu",
+        "invalidRightsDescription": "Sazinieties ar sistēmas administratoru.",
+        "invalidRequestTitle": "Kļūdains autorizācijas pieprasījums",
+        "invalidRequestDescription": "Mēģiniet veikt atkārtotu autorizāciju."
+      }
+    },
+    "siteMap": {
+      "title": "Lapas karte",
+      "description": "Navigācijas rīks, kas attēlo pieejamo sadaļu un apakšsadaļu pārskatu, nodrošinot vienkāršu un ērtu piekļuvi nepieciešamajai informācijai",
+      "top3Routes": "Top 3 maršruti"
+    }
+  },
+  "errors": {
+    "forbidden": "Jums nav tiesību veikt šo darbību!",
+    "loadFailed": "Neizdevās ielādēt datus",
+    "logoutFailed": "Radās kļūda, veicot atteikšanos no sistēmas, pārlādējiet lapu un mēģiniet atkārtoti.",
+    "helpLoadFailed": "Neizdevās ielādēt palīdzības informāciju",
+    "networkError": "Tīkla kļūda. Neizdevās izveidot savienojumu ar serveri. Lūdzu, pārbaudiet savu interneta savienojumu un mēģiniet vēlreiz!",
+    "http304": "Neizdevās mainīt datus. Mēģiniet vēlreiz!",
+    "http400": "Kļūda pieprasījumā. Pārbaudiet datus un mēģiniet vēlreiz!",
+    "http422": "Problēma pieprasījuma izpildē",
+    "http500": "Notika iekšējā servera problēma"
+  }
+}

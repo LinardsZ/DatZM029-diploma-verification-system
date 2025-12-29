@@ -1,0 +1,266 @@
+<html lang="lv">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+
+    <meta name="theme-color" content="#222222" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#222222" media="(prefers-color-scheme: light)" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="/" />
+    <meta property="og:title" content="${REPO_NAME}" />
+    <meta property="og:image" content="/meta/og.png" />
+    <meta property="og:description" content="${REPO_DESCRIPTION}" />
+    <meta property="og:site_name" content="${REPO_NAME}" />
+
+    <style type="text/css">
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body,
+      h1,
+      h2,
+      h3,
+      h4,
+      p,
+      figure,
+      blockquote,
+      dl,
+      dd {
+        margin: 0;
+      }
+
+      ul[role='list'],
+      ol[role='list'] {
+        list-style: none;
+      }
+
+      html:focus-within {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        min-height: 100vh;
+        text-rendering: optimizeSpeed;
+        line-height: 1.5;
+        background: #eee;
+      }
+
+      a:not([class]) {
+        text-decoration-skip-ink: auto;
+      }
+
+      img,
+      picture {
+        max-width: 100%;
+        display: block;
+      }
+
+      input,
+      button,
+      textarea,
+      select {
+        font: inherit;
+      }
+
+      body {
+        overflow-x: hidden;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .lx-main-header {
+        background-color: #222;
+        height: 48px;
+        display: flex;
+        align-items: center;
+      }
+      .lx-main-header svg {
+        height: 24px;
+        fill: #eee;
+        margin-right: 16px;
+      }
+      .lx-main-header .lx-button {
+        display: flex;
+        align-items: center;
+        padding-left: 11px;
+        color: #eee;
+        font-weight: bold;
+        text-decoration: none;
+        width: 245px;
+        height: 100%;
+      }
+      .lx-main-header .lx-button:hover {
+        background: #000;
+      }
+      .lx-divider {
+        border-right: 1px solid #e0e0e0;
+        height: 32px;
+        opacity: 0.2;
+      }
+      main {
+        display: flex;
+        justify-content: center;
+      }
+      .content {
+        width: 1200px;
+      }
+      .content .illustration {
+        margin-top: 128px;
+        fill: rgb(218, 30, 40);
+        height: 128px;
+        width: 128px;
+        margin-bottom: 32px;
+      }
+      h1 {
+        font-size: 52.8px;
+        color: rgb(218, 30, 40);
+        font-weight: 300;
+        margin-bottom: 16px;
+      }
+      p {
+        line-height: 1.1em;
+        margin-bottom: 1em;
+      }
+      @media (max-width: 1200px) {
+        .content .illustration {
+          margin-top: 64px;
+          margin-bottom: 16px;
+        }
+        .content {
+          width: 100%;
+          padding: 32px;
+        }
+      }
+      @media (max-width: 800px) {
+        .content .illustration {
+          margin-top: 32px;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="lx">
+    <div id="app" data-v-app="">
+      <div>
+        <div>
+          <div class="lx-layout lx-layout-default lx-collapsed">
+            <header class="lx-main-header">
+              <!--v-if--><a
+                href="/"
+                class="router-link-active lx-button lx-button-main"
+                title="${REPO_NAME}"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  x="0px"
+                  y="0px"
+                  viewBox="0 0 32 32"
+                  xml:space="preserve"
+                >
+                  <path
+                    d="M8.78,7.55V18.6c0,2.78,2.26,5.04,5.04,5.04h4.51c2.69,0,4.88-2.19,4.88-4.88V7.55H8.78z M21.22,9.55v5.01H10.78V9.55H21.22
+	z M10.78,18.6v-2.03h4.39v5.07h-1.35C12.15,21.63,10.78,20.27,10.78,18.6z M18.33,21.63h-1.16v-5.07h4.04v2.19
+	C21.22,20.34,19.92,21.63,18.33,21.63z"
+                  ></path>
+                  <path
+                    d="M11.67,6.18l0.65,1.3c0.01,0.03,0.04,0.04,0.07,0.04c0.03,0,0.05-0.02,0.07-0.04l0.64-1.31l1.44-0.21
+	c0.03,0,0.05-0.02,0.06-0.05c0.01-0.03,0-0.06-0.02-0.08l-1.04-1.01l0.24-1.43c0-0.03-0.01-0.06-0.03-0.07
+	c-0.02-0.02-0.05-0.02-0.08-0.01L12.37,4l-1.29-0.67c-0.03-0.01-0.06-0.01-0.08,0.01c-0.02,0.02-0.03,0.05-0.03,0.07l0.25,1.43
+	l-1.04,1.02c-0.02,0.02-0.03,0.05-0.02,0.07c0.01,0.03,0.03,0.05,0.06,0.05L11.67,6.18z"
+                  ></path>
+                  <path
+                    d="M21.79,5.97c0.03,0,0.05-0.02,0.06-0.05c0.01-0.03,0-0.06-0.02-0.07l-1.04-1.02l0.25-1.43c0-0.03-0.01-0.06-0.03-0.07
+	c-0.02-0.02-0.05-0.02-0.08-0.01L19.65,4l-1.28-0.68c-0.03-0.01-0.06-0.01-0.08,0.01c-0.02,0.02-0.03,0.04-0.03,0.07l0.24,1.43
+	l-1.04,1.01c-0.02,0.02-0.03,0.05-0.02,0.08c0.01,0.03,0.03,0.05,0.06,0.05l1.44,0.21l0.64,1.31c0.01,0.03,0.04,0.04,0.07,0.04
+	c0.03,0,0.05-0.02,0.07-0.04l0.65-1.3L21.79,5.97z"
+                  ></path>
+                  <path
+                    d="M13.87,3.22c-0.03,0-0.05,0.02-0.06,0.05c-0.01,0.03,0,0.06,0.02,0.07l1.04,1.02l-0.25,1.43c0,0.03,0.01,0.06,0.03,0.07
+	c0.02,0.02,0.05,0.02,0.08,0.01l1.29-0.67l1.28,0.68c0.03,0.01,0.06,0.01,0.08-0.01c0.02-0.02,0.03-0.04,0.03-0.07l-0.24-1.43
+	l1.04-1.01c0.02-0.02,0.03-0.05,0.02-0.08c-0.01-0.03-0.03-0.05-0.06-0.05l-1.44-0.21l-0.64-1.31c-0.01-0.03-0.04-0.04-0.07-0.04
+	c-0.03,0-0.05,0.02-0.07,0.04l-0.65,1.3L13.87,3.22z"
+                  ></path>
+                  <path
+                    d="M28.02,17.26l3.05-4.88c0.29-0.47,0.15-1.09-0.32-1.38c-0.47-0.29-1.09-0.15-1.38,0.32l-1.88,3.02l-0.86-3.3
+	c-0.14-0.53-0.68-0.85-1.22-0.72c-0.54,0.14-0.86,0.68-0.72,1.22l1.33,5.13l-2.3,3.69c0,0,0,0,0,0l-2.01,3.22l-5.68,2.65l-5.63-2.65
+	L8.4,20.37c0,0,0,0,0,0l-2.3-3.69l1.33-5.13c0.14-0.53-0.18-1.08-0.72-1.22c-0.53-0.14-1.08,0.18-1.22,0.72l-0.86,3.3l-1.88-3.02
+	C2.46,10.85,1.85,10.71,1.38,11c-0.47,0.29-0.61,0.91-0.32,1.38l3.05,4.88c0.04,0.1,0.09,0.18,0.16,0.26l1.09,1.75l-2.45-0.64
+	c-0.53-0.13-1.08,0.18-1.22,0.71c-0.14,0.53,0.18,1.08,0.71,1.22l3.33,0.87l-2.23,0.83c-0.52,0.19-0.78,0.77-0.59,1.29
+	c0.15,0.4,0.53,0.65,0.94,0.65c0.12,0,0.23-0.02,0.35-0.06l3.4-1.27l0.52,0.83l-1.66,0.36c-0.54,0.12-0.88,0.65-0.76,1.19
+	c0.1,0.47,0.52,0.79,0.98,0.79c0.07,0,0.14-0.01,0.21-0.02l2.72-0.59c0,0,0,0,0.01,0l0.58,0.27l-1.69,1.6
+	c-0.4,0.38-0.42,1.01-0.04,1.41c0.2,0.21,0.46,0.31,0.73,0.31c0.25,0,0.49-0.09,0.69-0.27l2.26-2.13l1.54,0.72l-0.7,0.33
+	c-0.5,0.24-0.71,0.83-0.48,1.33c0.17,0.36,0.53,0.57,0.9,0.57c0.14,0,0.29-0.03,0.43-0.1l2.21-1.02l2.18,1.02
+	c0.14,0.07,0.28,0.1,0.43,0.1c0.37,0,0.73-0.21,0.9-0.57c0.24-0.5,0.02-1.1-0.48-1.33l-0.67-0.31l1.58-0.74l2.26,2.13
+	c0.19,0.18,0.44,0.27,0.69,0.27c0.27,0,0.53-0.11,0.73-0.31c0.38-0.4,0.36-1.03-0.04-1.41l-1.69-1.6l0.58-0.27c0,0,0,0,0.01,0
+	l2.72,0.59c0.07,0.02,0.14,0.02,0.21,0.02c0.46,0,0.87-0.32,0.98-0.79c0.12-0.54-0.22-1.07-0.76-1.19L24,23.7l0.52-0.83l3.4,1.27
+	c0.12,0.04,0.23,0.06,0.35,0.06c0.41,0,0.79-0.25,0.94-0.65c0.19-0.52-0.07-1.09-0.59-1.29l-2.23-0.83l3.33-0.87
+	c0.53-0.14,0.85-0.69,0.71-1.22c-0.14-0.53-0.69-0.85-1.22-0.71l-2.45,0.64l1.09-1.75C27.93,17.44,27.98,17.36,28.02,17.26z"
+                  ></path>
+                  <path
+                    d="M21.04,15.32c-0.08-2.71-2.29-4.89-5.01-4.89s-4.94,2.18-5.01,4.89H21.04z"
+                  ></path>
+                  <rect x="12.12" y="17.81" width="2" height="2"></rect>
+                  <rect x="18.11" y="17.9" width="2" height="2"></rect></svg
+                ><!--v-if-->
+                <div><label>${REPO_NAME}</label></div></a
+              >
+              <div class="lx-divider"></div>
+            </header>
+            <main>
+              <div class="content">
+                <svg
+                  class="illustration"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  x="0px"
+                  y="0px"
+                  viewBox="0 0 32 32"
+                  style="enable-background: new 0 0 32 32"
+                  xml:space="preserve"
+                >
+                  <g id="do-not">
+                    <path
+                      id="do--not_1_"
+                      d="M16,31.36C7.53,31.36,0.64,24.469,0.64,16S7.531,0.64,16,0.64S31.36,7.53,31.36,16S24.47,31.36,16,31.36z
+		 M16,1.36C7.928,1.36,1.36,7.927,1.36,16c0,8.072,6.567,14.64,14.64,14.64c8.072,0,14.639-6.567,14.639-14.64
+		C30.64,7.927,24.072,1.36,16,1.36z M20.987,23.36c-0.636,0-1.232-0.246-1.68-0.693L16,19.358l-3.308,3.309
+		c-0.894,0.896-2.465,0.894-3.359,0c-0.447-0.447-0.693-1.044-0.693-1.68s0.246-1.232,0.693-1.68L12.641,16l-3.308-3.308
+		c-0.926-0.926-0.926-2.433,0-3.358s2.434-0.927,3.359,0L16,12.641l3.307-3.307c0.896-0.895,2.466-0.894,3.359,0
+		c0.447,0.447,0.693,1.043,0.693,1.679s-0.246,1.232-0.693,1.68L19.359,16l3.308,3.308c0.447,0.447,0.693,1.043,0.693,1.68
+		s-0.246,1.232-0.693,1.68S21.624,23.36,20.987,23.36z M16,18.489c0.096,0,0.187,0.038,0.254,0.105l3.562,3.562
+		c0.622,0.624,1.721,0.623,2.34,0c0.312-0.311,0.483-0.727,0.483-1.17s-0.172-0.859-0.483-1.17l-3.562-3.563
+		c-0.141-0.141-0.141-0.368,0-0.509l3.562-3.562c0.312-0.311,0.483-0.727,0.483-1.17s-0.172-0.859-0.483-1.17
+		c-0.619-0.621-1.718-0.624-2.34,0l-3.562,3.562c-0.141,0.141-0.368,0.141-0.509,0l-3.562-3.562c-0.623-0.623-1.72-0.622-2.341,0
+		c-0.645,0.646-0.645,1.695,0,2.341l3.562,3.562c0.141,0.141,0.141,0.368,0,0.509l-3.562,3.563c-0.311,0.311-0.482,0.727-0.482,1.17
+		s0.171,0.859,0.482,1.17c0.621,0.622,1.718,0.623,2.341,0l3.562-3.562C15.813,18.527,15.905,18.489,16,18.489z"
+                    />
+                  </g>
+                  <rect id="_Transparent_Rectangle" style="fill: none" width="32" height="32" />
+                </svg>
+
+                <h1>Kļūdas virsraksts</h1>
+
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                  exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                  irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                  pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+                  officia deserunt mollit anim id est laborum
+                </p>
+                <p>Skaidrojošais teksts 2</p>
+              </div>
+            </main>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

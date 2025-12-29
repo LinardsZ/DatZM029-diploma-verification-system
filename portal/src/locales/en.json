@@ -1,0 +1,210 @@
+{
+  "title": {
+    "prefix": "",
+    "fullName": "Blockchain",
+    "subheader": "Document Verification System",
+    "shortName": "Blockchain",
+    "default": "Blockchain"
+  },
+  "shell": {
+    "notifications": {
+      "logOut": "Your session has been successfully ended",
+      "unknownState": "An error occurred while processing the user status",
+      "sessionContinued": "Session successfully extended",
+      "sessionContinuedFailed": "Failed to extend session",
+      "sessionEndingSoon": "Your session will expire soon",
+      "logoutConfirm": "Are you sure you want to log out?",
+      "logoutConfirmYes": "Yes",
+      "logoutConfirmNo": "No",
+      "logoutConfirmTitle": "Log Out"
+    },
+    "languages": {
+        "lv": "Latvian (Latviešu)",
+        "en": "English"
+    },
+    "footer": {
+        "footerText": "The portal is intended for verifying and checking diplomas and certificates",
+        "versionText": "Version"
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "Blockchain",
+      "buttons": {
+        "loginAuthorized": "Go to Home",
+        "loginUnauthorized": "Log In"
+      }
+    },
+    "sessionTimeout": {
+      "title": "Your session has expired",
+      "description": "The session time has ended. To continue working, please log in again"
+    },
+    "dashboard": {
+      "title": "Home"
+    },
+    "newCredential": {
+      "title": "New Document",
+      "form": {
+        "universityName": "Institution Name",
+        "degreeName": "Document Name",
+        "issueDate": "Issue Date",
+        "expiryDate": "Expiry Date",
+        "status": "Status",
+        "credentialType": "Document Type",
+        "degreeFile": "Document File",
+        "valid": "Valid",
+        "invalid": "Invalid",
+        "diploma": "Diploma",
+        "certificate": "Certificate",
+        "save": "Save",
+        "cancel": "Cancel",
+        "documentCreated": "Document crated successfully",
+        "creationFailed": "An error occurred. Try again",
+
+        "id": "ID",
+        "graduatePublicKey": "GraduatePublicKey",
+        "issuerSignature": "IssuerSignature",
+        "issuerPublicKey": "IssuerPublicKey"
+      }
+    },
+    "verification": {
+      "title": "Document Verification",
+      "verify": "Verify",
+      "successLabel": "Verification Successful",
+      "successDescription": "The file was found on the blockchain. Such a document exists",
+      "errorLabel": "Verification Failed",
+      "errorDescription": "The file was not found. Such a document does not exist",
+      "reset": "Verify another document",
+      "fileUploader": {
+        "clear": "Clear",
+        "buttonLabel": "Choose file",
+        "uploaderDescription": "",
+        "draggablePlaceholder": "Drag files here, or click to upload",
+        "placeholder": "Enter part of the name or description to search records",
+        "notFoundSearch": "Not found:",
+        "close": "Close",
+        "noItems": "No files added",
+        "infoButton": "View details",
+        "download": "Download",
+        "addPhoto": "Add photo",
+        "savePicture": "Save",
+        "cancelAndClose": "Cancel",
+        "errorLabel": "An error occurred",
+        "errorDescription": "Permission to use the camera was not granted",
+        "reloadPage": "Reload page",
+        "changeCamera": "Switch camera",
+        "takePhoto": "Take photo",
+        "deletePhoto": "Try again",
+        "useCamera": "Use camera",
+        "metaPreviewLabel": "Preview",
+        "metaPreviewDescription": "preview",
+        "metaMainLabel": "Main data",
+        "metaMainAuthor": "Author",
+        "metaMainFormat": "Format",
+        "metaMainImageDimensions": "Image dimensions",
+        "metaMainLastModified": "Last modified",
+        "metaMainDateCreated": "Creation date",
+        "metaMainDataSize": "File size",
+        "metaAdditionalLabel": "All data",
+        "metaLocationLabel": "Location data",
+        "metaLocationLatitude": "Latitude",
+        "metaLocationLongitude": "Longitude",
+        "metaLocationAltitude": "Altitude",
+        "metaImageLabel": "Image data",
+        "metaImageWidth": "Image width",
+        "metaImageHeight": "Image height",
+        "metaImageHorizontalResolution": "Horizontal resolution",
+        "metaImageVerticalResolution": "Vertical resolution",
+        "metaImageCopyright": "Copyright",
+        "metaCameraBrand": "Camera brand",
+        "metaCameraModel": "Camera model",
+        "metaFocusLength": "Focal length",
+        "metaFStop": "F-stop",
+        "metaExposure": "Exposure",
+        "metaISO": "ISO",
+        "metaExposureBias": "Exposure bias",
+        "metaFlash": "Flash setting",
+        "metaColorSpace": "Color space",
+        "metaDateTime": "Date and time",
+        "metaArchiveContentLabel": "Archive content",
+        "metaAdditionalInfoSizeTitle": "Size",
+        "metaAdditionalInfoExtensionTitle": "Extension",
+        "metaAdditionalInfoResolutionTitle": "Resolution",
+        "metaAdditionalInfoFileCountTitle": "File count",
+        "metaAdditionalInfoFileCountLabelSingle": "file",
+        "metaAdditionalInfoFileCountLabelMulti": "files",
+        "metaAdditionalInfoProtectedArchive": "Archive protected with a password",
+        "metaAdditionalInfoPageCountTitle": "Page count",
+        "metaAdditionalInfoSlideCountTitle": "Slide count",
+        "metaAdditionalInfoPageCountLabelSingle": "page",
+        "metaAdditionalInfoPageCountLabelMulti": "pages",
+        "metaAdditionalInfoSlideCountLabelSingle": "slide",
+        "metaAdditionalInfoSlideCountLabelMulti": "slides",
+        "metaAdditionalInfoeSigned": "Document signed with a secure electronic signature",
+        "metaAdditionalInfoc2paSigned": "File signed with a C2PA electronic signature",
+        "metaAdditionalInfoAiCreated": "Created using artificial intelligence",
+        "metaMainTitle": "Title",
+        "metaMainDescription": "Description",
+        "metaEDocContentLabel": "Signatures",
+        "metaEdocArchiveContentLabel": "Content"
+      },
+      "dateTimePicker": {
+        "clear": "Clear",
+        "todayButton": "Return to today",
+        "clearButton": "Clear value",
+        "next": "Next",
+        "previous": "Previous",
+        "nextMonth": "Next month",
+        "previousMonth": "Previous month",
+        "nextYear": "Next year",
+        "previousYear": "Previous year",
+        "nextDecade": "Next decade",
+        "previousDecade": "Previous decade",
+        "scrollUp": "Scroll up",
+        "scrollDown": "Scroll down"
+      }
+    },
+
+    "login": {
+      "title": "Authorization"
+    },
+    "userAgreement": {},
+    "users": {},
+    "error": {
+      "goBack": "Go Back",
+      "goHome": "Go to Home",
+      "title": "An unexpected error occurred",
+      "authorizeButton": "Log In"
+    },
+    "auth": {
+      "title": "Processing",
+      "description": "Processing. Please wait!",
+      "errors": {
+        "unknownTitle": "Unknown authorization error",
+        "unknownDescription": "Try to log in again.",
+        "blockedTitle": "User is blocked",
+        "blockedDescription": "Contact the system administrator.",
+        "invalidRightsTitle": "You do not have permissions to use this system",
+        "invalidRightsDescription": "Contact the system administrator.",
+        "invalidRequestTitle": "Invalid authorization request",
+        "invalidRequestDescription": "Try to log in again."
+      }
+    },
+    "siteMap": {
+      "title": "Site Map",
+      "description": "A navigation tool that shows an overview of available sections and subsections, providing simple and easy access to the information you need",
+      "top3Routes": "Top 3 routes"
+    }
+  },
+  "errors": {
+    "forbidden": "You do not have permission to perform this action!",
+    "loadFailed": "Failed to load data",
+    "logoutFailed": "An error occurred while logging out. Please reload the page and try again.",
+    "helpLoadFailed": "Failed to load help information",
+    "networkError": "Network error. Failed to connect to the server. Please check your internet connection and try again!",
+    "http304": "Failed to modify data. Please try again!",
+    "http400": "Bad request. Check your data and try again!",
+    "http422": "Problem executing the request",
+    "http500": "Internal server error occurred"
+  }
+}
