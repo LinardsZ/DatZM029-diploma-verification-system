@@ -32,6 +32,8 @@ chmod +x install-fabric.sh
 ./install-fabric.sh binary docker
 ```
 
+> If latest does not work - last known working version: fabric v2.5.14, fabric-ca 1.5.15
+
 This will create:
 - `blockchain/bin/` - Fabric binaries (peer, orderer, cryptogen, etc.)
 - `blockchain/config/` - Configuration files
