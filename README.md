@@ -19,6 +19,11 @@ A blockchain-based diploma verification system built on Hyperledger Fabric that 
 
 ## Installation
 
+### 0. Login into WSL
+```bash
+wsl.exe -d Ubuntu
+```
+
 ### 1. Clone the Repository
 ```bash
 git clone https://github.com/LinardsZ/DatZM029-diploma-verification-system.git
