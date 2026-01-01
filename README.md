@@ -11,7 +11,7 @@
 A blockchain-based diploma verification system built on Hyperledger Fabric that allows universities to issue and verify educational credentials securely.
 
 ## Prerequisites
-- **Docker Desktop** (with WSL2 integration enabled for Windows)
+- **Docker Desktop v4.51.0** (with WSL2 integration enabled for Windows)
 - **Go**
 - **Git**
 - **Bash** (Git Bash for Windows or WSL)
