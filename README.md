@@ -171,30 +171,12 @@ peer chaincode query -C mychannel -n diploma -c '{"Args":["ReadCredential","cred
 
 ### Create a New Credential
 ```bash
-peer chaincode invoke -o localhost:7050 \
-  --ordererTLSHostnameOverride orderer.example.com \
-  --tls \
-  --cafile "${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem" \
-  -C mychannel -n diploma \
-  --peerAddresses localhost:7051 \
-  --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt" \
-  --peerAddresses localhost:9051 \
-  --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt" \
-  -c '{"function":"CreateCredential","Args":["credential4","hash123","pubkey123","sig123","issuerpub123","{\"universityName\":\"MIT\",\"studentName\":\"Alice\",\"degreeName\":\"PhD\",\"issueDate\":\"2025-12-01\",\"expiryDate\":\"\"}","Valid","Diploma"]}'
+peer chaincode invoke -o localhost:7050   --ordererTLSHostnameOverride orderer.example.com   --tls   --cafile "${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem"   -C mychannel -n diploma   --peerAddresses localhost:7051   --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt"   --peerAddresses localhost:9051   --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt"   -c '{"Args":["CreateCredential", "{\"id\":\"2\",\"diplomaHash\":\"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\"graduatePublicKey\":\"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1234...\",\"issuerId\":\"lu\",\"issuerSignature\":\"3045022100abcd...\",\"diplomaMetadata\":{\"universityName\":\"MIT\",\"degreeName\":\"Bachelor of Science in Computer Science\",\"issueDate\":\"2024-06-15\",\"expiryDate\":\"\"},\"status\":\"Valid\",\"credentialType\":\"Diploma\"}"]}'
 ```
 
 ### Update Credential Status
 ```bash
-peer chaincode invoke -o localhost:7050 \
-  --ordererTLSHostnameOverride orderer.example.com \
-  --tls \
-  --cafile "${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem" \
-  -C mychannel -n diploma \
-  --peerAddresses localhost:7051 \
-  --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt" \
-  --peerAddresses localhost:9051 \
-  --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt" \
-  -c '{"function":"UpdateCredential","Args":["credential1","{\"status\":\"Revoked\"}"]}'
+peer chaincode invoke -o localhost:7050   --ordererTLSHostnameOverride orderer.example.com   --tls   --cafile "${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem"   -C mychannel -n diploma   --peerAddresses localhost:7051   --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt"   --peerAddresses localhost:9051   --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt"   -c '{"Args":["UpdateCredential", "{\"id\":\"1\",\"diplomaHash\":\"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\"graduatePublicKey\":\"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1234...\",\"issuerId\":\"lu\",\"issuerSignature\":\"3045022100abcd...\",\"diplomaMetadata\":{\"universityName\":\"MIT\",\"degreeName\":\"Bachelor of Science in Computer Science\",\"issueDate\":\"2024-06-15\",\"expiryDate\":\"\"},\"status\":\"Revoked\",\"credentialType\":\"Diploma\"}"]}'
 ```
 
 ## Stopping the Network
