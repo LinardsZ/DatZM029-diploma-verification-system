@@ -2,7 +2,10 @@ module github.com/LinardsZ/DatZM029-diploma-verification-system/blockchain/chain
 
 go 1.23.0
 
-require github.com/hyperledger/fabric-contract-api-go/v2 v2.2.0
+require (
+	github.com/google/uuid v1.6.0
+	github.com/hyperledger/fabric-contract-api-go/v2 v2.2.0
+)
 
 require (
 	github.com/go-openapi/jsonpointer v0.21.0 // indirect
