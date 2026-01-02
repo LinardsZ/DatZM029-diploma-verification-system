@@ -118,6 +118,45 @@ peer chaincode invoke -o localhost:7050 \
   -c '{"function":"InitLedger","Args":[]}'
 ```
 
+## Starting the gateway
+
+### 1. Build and start the gateway service
+```bash
+cd ~/DatZM029-diploma-verification-system/blockchain/test-network/application-gateway
+go build -o gateway
+./gateway
+```
+
+### 2. Get WSL IP address
+```bash
+ip addr show eth0
+```
+
+> Find the row starting with `inet`, e.g. `inet 192.1.68.1/20 ... scope global eth0` -> the IP address is 192.1.68.1
+
+### 3. Test gateway service availability
+
+Invoke authorized issuer creation and a mock diploma creation.
+```bash
+peer chaincode invoke -o localhost:7050 \
+  --ordererTLSHostnameOverride orderer.example.com \
+  --tls \
+  --cafile "${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem" \
+  -C mychannel -n diploma \
+  --peerAddresses localhost:7051 \
+  --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt" \
+  --peerAddresses localhost:9051 \
+  --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt" \
+  -c '{"function":"InitLedger","Args":[]}'
+```
+
+Invoke a new diploma creation.
+```bash
+peer chaincode invoke -o localhost:7050   --ordererTLSHostnameOverride orderer.example.com   --tls   --cafile "${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem"   -C mychannel -n diploma   --peerAddresses localhost:7051   --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt"   --peerAddresses localhost:9051   --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt"   -c '{"Args":["CreateCredential", "{\"id\":\"1\",\"diplomaHash\":\"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\"graduatePublicKey\":\"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1234...\",\"issuerId\":\"lu\",\"issuerSignature\":\"3045022100abcd...\",\"diplomaMetadata\":{\"universityName\":\"MIT\",\"degreeName\":\"Bachelor of Science in Computer Science\",\"issueDate\":\"2024-06-15\",\"expiryDate\":\"\"},\"status\":\"Valid\",\"credentialType\":\"Diploma\"}"]}'
+```
+
+Open `<WSL_IP_ADDRESS>:8080/credential/1` in your browser on Windows. You should get a response back containing the credential data.
+
 ## Testing the Chaincode
 
 ### Query All Credentials

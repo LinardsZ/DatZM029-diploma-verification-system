@@ -33,8 +33,8 @@ type Credential struct {
 	ID                string          `json:"id"`
 	DiplomaHash       string          `json:"diplomaHash"`
 	GraduatePublicKey string          `json:"graduatePublicKey"`
+	IssuerID          string          `json:"issuerId"`
 	IssuerSignature   string          `json:"issuerSignature"`
-	IssuerPublicKey   string          `json:"issuerPublicKey"`
 	DiplomaMetadata   DiplomaMetadata `json:"diplomaMetadata"`
 	Status            string          `json:"status"`
 	CredentialType    string          `json:"credentialType"`
@@ -165,5 +165,5 @@ func main() {
 		c.JSON(http.StatusOK, cred)
 	})
 
-	router.Run(":8080")
+	router.Run("0.0.0.0:8080")
 }

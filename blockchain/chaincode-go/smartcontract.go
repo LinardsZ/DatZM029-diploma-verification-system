@@ -109,7 +109,8 @@ func (s *SmartContract) CreateCredential(ctx contractapi.TransactionContextInter
 
 // ReadCredential returns the credential stored in the world state with given id.
 func (s *SmartContract) ReadCredential(ctx contractapi.TransactionContextInterface, id string) (*Credential, error) {
-	credentialJSON, err := ctx.GetStub().GetState(id)
+	key := CredentialKey + id
+	credentialJSON, err := ctx.GetStub().GetState(key)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read from world state: %v", err)
 	}
