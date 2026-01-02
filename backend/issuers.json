@@ -1,0 +1,12 @@
+[
+  {
+    "id": "lu",
+    "name": "University of Latvia",
+    "apiKey": "test"
+  },
+  {
+    "id": "rtu",
+    "name": "Riga Technical University",
+    "apiKey": "test"
+  }
+]
