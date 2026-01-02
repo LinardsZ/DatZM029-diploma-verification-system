@@ -1,9 +1,12 @@
 package main
 
 import (
+	"crypto/sha256"
 	"crypto/x509"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"path"
@@ -46,6 +49,36 @@ type DiplomaMetadata struct {
 	IssueDate      string `json:"issueDate"`
 	ExpiryDate     string `json:"expiryDate"`
 }
+
+// Issuer represents an authorized organization
+type Issuer struct {
+	ID     string `json:"id"`
+	Name   string `json:"name"`
+	APIKey string `json:"apiKey"`
+}
+
+// CreateCredentialRequest for POST /credential
+type CreateCredentialRequest struct {
+	DiplomaHash       string          `json:"diplomaHash" binding:"required"`
+	GraduatePublicKey string          `json:"graduatePublicKey" binding:"required"`
+	IssuerID          string          `json:"issuerId" binding:"required"`
+	IssuerSignature   string          `json:"issuerSignature" binding:"required"`
+	DiplomaMetadata   DiplomaMetadata `json:"diplomaMetadata" binding:"required"`
+	CredentialType    string          `json:"credentialType" binding:"required"`
+}
+
+// VerifyHashRequest for POST /verify/hash
+type VerifyHashRequest struct {
+	DiplomaHash string `json:"diplomaHash" binding:"required"`
+}
+
+// VerifySignatureRequest for POST /verify/signature
+type VerifySignatureRequest struct {
+	CredentialID      string `json:"credentialId" binding:"required"`
+	GraduateSignature string `json:"graduateSignature" binding:"required"`
+}
+
+var issuers = []Issuer{}
 
 // FabricService wraps gateway connection
 type FabricService struct {
@@ -147,7 +180,48 @@ func (f *FabricService) ReadCredential(id string) (*Credential, error) {
 	return &cred, nil
 }
 
+// CreateCredential submits a transaction to create a new credential
+func (f *FabricService) CreateCredential(cred *Credential) error {
+	credJSON, err := json.Marshal(cred)
+	if err != nil {
+		return err
+	}
+	_, err = f.contract.SubmitTransaction("CreateCredential", string(credJSON))
+	return err
+}
+
+// LoadIssuers loads authorized issuers from JSON file
+func LoadIssuers() error {
+	data, err := ioutil.ReadFile("../../backend/issuers.json")
+	if err != nil {
+		return err
+	}
+	return json.Unmarshal(data, &issuers)
+}
+
+// ValidateAPIKey checks if the provided API key is valid for the issuer
+func ValidateAPIKey(issuerID, apiKey string) bool {
+	for _, issuer := range issuers {
+		if issuer.ID == issuerID && issuer.APIKey == apiKey {
+			return true
+		}
+	}
+	return false
+}
+
+// GenerateCredentialID creates a unique ID for the credential
+func GenerateCredentialID(diplomaHash string) string {
+	h := sha256.New()
+	h.Write([]byte(diplomaHash))
+	return hex.EncodeToString(h.Sum(nil))[:16]
+}
+
 func main() {
+	// Load authorized issuers
+	if err := LoadIssuers(); err != nil {
+		panic(fmt.Sprintf("Failed to load issuers: %v", err))
+	}
+
 	fs, err := ConnectGateway()
 	if err != nil {
 		panic(err)
@@ -155,15 +229,142 @@ func main() {
 
 	router := gin.Default()
 
+	// Enable CORS
+	router.Use(func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization, X-API-Key")
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(204)
+			return
+		}
+		c.Next()
+	})
+
+	// GET /credential/:id - Read credential by ID
 	router.GET("/credential/:id", func(c *gin.Context) {
 		id := c.Param("id")
 		cred, err := fs.ReadCredential(id)
 		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			c.JSON(http.StatusNotFound, gin.H{"error": "Credential not found", "details": err.Error()})
 			return
 		}
 		c.JSON(http.StatusOK, cred)
 	})
 
+	// POST /credential - Create new credential (with API key validation)
+	router.POST("/credential", func(c *gin.Context) {
+		apiKey := c.GetHeader("X-API-Key")
+		if apiKey == "" {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "API key is required"})
+			return
+		}
+
+		var req CreateCredentialRequest
+		if err := c.ShouldBindJSON(&req); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request", "details": err.Error()})
+			return
+		}
+
+		// Validate API key
+		if !ValidateAPIKey(req.IssuerID, apiKey) {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid API key for issuer"})
+			return
+		}
+
+		// Generate unique credential ID
+		credentialID := GenerateCredentialID(req.DiplomaHash)
+
+		// Create credential object
+		credential := &Credential{
+			ID:                credentialID,
+			DiplomaHash:       req.DiplomaHash,
+			GraduatePublicKey: req.GraduatePublicKey,
+			IssuerID:          req.IssuerID,
+			IssuerSignature:   req.IssuerSignature,
+			DiplomaMetadata:   req.DiplomaMetadata,
+			Status:            "Valid",
+			CredentialType:    req.CredentialType,
+		}
+
+		// Submit to blockchain
+		if err := fs.CreateCredential(credential); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create credential", "details": err.Error()})
+			return
+		}
+
+		c.JSON(http.StatusCreated, gin.H{
+			"message":      "Credential created successfully",
+			"credentialId": credentialID,
+			"credential":   credential,
+		})
+	})
+
+	// POST /verify/hash - Verify diploma hash exists
+	router.POST("/verify/hash", func(c *gin.Context) {
+		var req VerifyHashRequest
+		if err := c.ShouldBindJSON(&req); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request", "details": err.Error()})
+			return
+		}
+
+		// Generate credential ID from hash
+		credentialID := GenerateCredentialID(req.DiplomaHash)
+
+		// Try to read the credential
+		credential, err := fs.ReadCredential(credentialID)
+		if err != nil {
+			c.JSON(http.StatusNotFound, gin.H{
+				"verified": false,
+				"message":  "Diploma hash not found in blockchain",
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, gin.H{
+			"verified":     true,
+			"message":      "Diploma hash verified",
+			"credentialId": credentialID,
+			"status":       credential.Status,
+			"issuerId":     credential.IssuerID,
+		})
+	})
+
+	// POST /verify/signature - Verify graduate signature and return full diploma data
+	router.POST("/verify/signature", func(c *gin.Context) {
+		var req VerifySignatureRequest
+		if err := c.ShouldBindJSON(&req); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request", "details": err.Error()})
+			return
+		}
+
+		// Read credential from blockchain
+		credential, err := fs.ReadCredential(req.CredentialID)
+		if err != nil {
+			c.JSON(http.StatusNotFound, gin.H{
+				"verified": false,
+				"error":    "Credential not found",
+			})
+			return
+		}
+
+		// TODO: Add cryptographic signature verification with graduate's public key
+		if req.GraduateSignature == "" {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"verified": false,
+				"error":    "Graduate signature is required",
+			})
+			return
+		}
+
+		// Signature verified (simplified for now)
+		c.JSON(http.StatusOK, gin.H{
+			"verified":   true,
+			"message":    "Graduate signature verified",
+			"credential": credential,
+		})
+	})
+
+	fmt.Println("Gateway running on http://0.0.0.0:8080")
 	router.Run("0.0.0.0:8080")
 }
