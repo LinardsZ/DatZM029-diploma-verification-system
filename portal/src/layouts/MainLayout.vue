@@ -51,6 +51,16 @@ const nav = [
     icon: 'dashboard',
     to: { name: 'dashboard' },
   },
+  {
+    label: i18n.t('pages.newCredential.title'),
+    icon: 'add',
+    to: { name: 'newCredential' },
+  },
+  {
+    label: i18n.t('pages.verification.title'),
+    icon: 'search',
+    to: { name: 'verification' },
+  },
 ];
 
 const systemName = computed(() => i18n.t('title.shortName'));

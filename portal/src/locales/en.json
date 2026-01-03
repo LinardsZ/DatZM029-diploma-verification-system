@@ -64,7 +64,16 @@
         "id": "ID",
         "graduatePublicKey": "GraduatePublicKey",
         "issuerSignature": "IssuerSignature",
-        "issuerPublicKey": "IssuerPublicKey"
+        "issuerPublicKey": "IssuerPublicKey",
+
+        "invalidMessages": {
+          "fillAllRequired": "Fill in all required fields",
+          "degreeName": "Enter Document Name",
+          "issueDate": "Select Issue Date",
+          "status": "Select Document Status",
+          "credentialType": "Select Document Type",
+          "degreeFile": "Upload Document File"
+        }
       }
     },
     "verification": {

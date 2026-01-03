@@ -14,8 +14,8 @@ importers:
         specifier: ^14.0.0
         version: 14.0.0(vue@3.5.17)
       '@wntr/lx-ui':
-        specifier: 1.11.0-beta.8
-        version: 1.11.0-beta.8(leaflet@1.9.4)(sortablejs@1.14.0)(vue@3.5.17)
+        specifier: 1.11.0-beta.11
+        version: 1.11.0-beta.11(leaflet@1.9.4)(sortablejs@1.14.0)(vue@3.5.17)
       axios:
         specifier: 1.7.9
         version: 1.7.9
@@ -1419,8 +1419,8 @@ packages:
     peerDependencies:
       vue: ^3.5.0
 
-  '@wntr/lx-ui@1.11.0-beta.8':
-    resolution: {integrity: sha512-Q43gYq8UwaWr1Sv0CPpfx/ww3U+DuRtyA4Z5w/cfpoK/g4SP3inAl4De8AIKX9o1aLu8rhaAz7l/tZZX7kjm9g==}
+  '@wntr/lx-ui@1.11.0-beta.11':
+    resolution: {integrity: sha512-wcmXff3Dc7ZiAett++I9XnPeGRzOkmaPZcYiEO81dEiKTYIcQ3o6o1/6kcnl9gR269B+f0oAZfURg7kjzS0dFA==}
     peerDependencies:
       vue: ^3.5.17
 
@@ -5245,7 +5245,7 @@ snapshots:
     dependencies:
       vue: 3.5.17
 
-  '@wntr/lx-ui@1.11.0-beta.8(leaflet@1.9.4)(sortablejs@1.14.0)(vue@3.5.17)':
+  '@wntr/lx-ui@1.11.0-beta.11(leaflet@1.9.4)(sortablejs@1.14.0)(vue@3.5.17)':
     dependencies:
       '@braintree/sanitize-url': 7.1.1
       '@floating-ui/vue': 1.1.6(vue@3.5.17)

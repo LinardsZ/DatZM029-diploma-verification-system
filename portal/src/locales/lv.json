@@ -64,8 +64,16 @@
         "id": "ID",
         "graduatePublicKey": "GraduatePublicKey",
         "issuerSignature": "IssuerSignature",
-        "issuerPublicKey": "IssuerPublicKey"
+        "issuerPublicKey": "IssuerPublicKey",
 
+        "invalidMessages": {
+          "fillAllRequired": "Aizpildiet visus obligātos laukus",
+          "degreeName": "Ievadiet dokumenta nosaukumu",
+          "issueDate": "Izvēlieties izdošanas datumu",
+          "status": "Izvēlieties dokumenta statusu",
+          "credentialType": "Izvēlieties dokumenta tipu",
+          "degreeFile": "Augšupielādējiet dokumenta datni"
+        }
         
       }
     },
