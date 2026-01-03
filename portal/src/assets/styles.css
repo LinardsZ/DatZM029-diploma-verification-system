@@ -71,6 +71,33 @@
   gap: 1rem;
 }
 
+.file-uploader-row .lx-invalidation-message{
+  display: block;
+  overflow: visible;
+  max-height: 12.5rem;
+  color: var(--color-bad);
+  font-size: var(--small-font-size);
+  font-weight: 400;
+  letter-spacing: var(--letter-spacing-1);
+  margin-top: .1rem;
+  cursor: auto;
+}
+
+.form-custom-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+}
+.form-custom-footer > div{
+  display: flex;
+  gap: 1rem;
+}
+
+.form-custom-footer .lx-button{
+  min-width: 12rem !important;
+}
+
 /* Verification */
 
 .lx-button.verify-button {
@@ -98,6 +125,11 @@
   .top-list-wrapper {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto;
+  }
+
+  .form-custom-footer,
+  .form-custom-footer > div {
+    flex-direction: column;
   }
 }
 

@@ -1,10 +1,10 @@
 {
   "title": {
     "prefix": "",
-    "fullName": "Blokķēdes",
+    "fullName": "TrustMeChain",
     "subheader": "Dokumentu verifikācijas sistēma",
-    "shortName": "Blokķēdes",
-    "default": "Blokķēdes"
+    "shortName": "TrustMeChain",
+    "default": "TrustMeChain"
   },
   "shell": {
     "notifications": {
@@ -64,8 +64,16 @@
         "id": "ID",
         "graduatePublicKey": "GraduatePublicKey",
         "issuerSignature": "IssuerSignature",
-        "issuerPublicKey": "IssuerPublicKey"
+        "issuerPublicKey": "IssuerPublicKey",
 
+        "invalidMessages": {
+          "fillAllRequired": "Aizpildiet visus obligātos laukus",
+          "degreeName": "Ievadiet dokumenta nosaukumu",
+          "issueDate": "Izvēlieties izdošanas datumu",
+          "status": "Izvēlieties dokumenta statusu",
+          "credentialType": "Izvēlieties dokumenta tipu",
+          "degreeFile": "Augšupielādējiet dokumenta datni"
+        }
         
       }
     },
@@ -167,7 +175,17 @@
         "scrollDown": "Ritināt uz leju"
       }
     },
-    
+    "verificationFull": {
+      "title": "Pilnā dokumentu verifikācija",
+      "form": {
+        "upload": "Dokument augšupielāde",
+        "sign": "Dokumentaa īpašnieka pārbaude",
+        "view": "Dokumenta apskatīšana",
+        "successLabel": "Verifikācija izdevās",
+        "verifyOwner": "Pārbaudīt dokumenta īpašnieku",
+        "reset": "Verificēt citu dokumentu"
+      }
+    },
 
     "login": {
       "title": "Autorizācija"

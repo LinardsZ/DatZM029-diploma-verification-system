@@ -13,6 +13,7 @@ import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import useNotifyStore from '@/stores/useNotifyStore';
 import { getFileHash } from '@/utils/generalUtils';
+import { postCredential } from '@/services/credentialService';
 
 const t = useI18n();
 const router = useRouter();
@@ -22,14 +23,12 @@ const diplomaFile = ref();
 const loading = ref(false);
 
 const inputData = ref({
-  id: null, // TODO: remove
-  graduatePublicKey: null, // TODO: remove
-  issuerSignature: null, // TODO: remove
-  issuerPublicKey: null, // TODO: remove
-
   diplomaHash: null,
+  graduatePublicKey: 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1234...', // TODO: get from idk where
+  issuerId: 'lu', // TODO: get from session
+  issuerSignature: '3045022100abcd...', // TODO: get from idk where
   diplomaMetadata: {
-    universityName: null,
+    universityName: 'Latvijas Universitāte', // TODO: get from session
     degreeName: null,
     issueDate: null,
     expiryDate: null,
@@ -38,7 +37,7 @@ const inputData = ref({
   credentialType: null,
 });
 
-const statusItmes = [
+const statusItems = [
   { id: 'Valid', name: 'Valid' },
   { id: 'Invalid', name: 'Invalid' },
 ];
@@ -71,24 +70,88 @@ watch(diplomaFile, async (newValue) => {
   }
 });
 
-function saveDocument() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const mockResponse = {
-        status: 201,
-        message: "Document saved successfully!",
-      };
-      resolve(mockResponse);
-    }, 2000);
-  });
+const defaultInvalidFields = {
+  diplomaMetadata: {
+    universityName: null,
+    degreeName: null,
+    issueDate: null,
+  },
+  status: null,
+  credentialType: null,
+  diplomaFile: null,
+};
+
+const invalidFields = ref({
+  ...defaultInvalidFields,
+});
+
+function validateModel() {
+  invalidFields.value = {
+    ...defaultInvalidFields,
+    diplomaMetadata: {
+      ...defaultInvalidFields.diplomaMetadata,
+    },
+  };
+
+  let hasErrors = false;
+  if (!inputData.value.diplomaMetadata.degreeName) {
+    invalidFields.value.diplomaMetadata.degreeName = t.t(
+      'pages.newCredential.form.invalidMessages.degreeName',
+    );
+    hasErrors = true;
+  }
+  if (!inputData.value.diplomaMetadata.issueDate) {
+    invalidFields.value.diplomaMetadata.issueDate = t.t(
+      'pages.newCredential.form.invalidMessages.issueDate',
+    );
+    hasErrors = true;
+  }
+  if (!inputData.value.status) {
+    invalidFields.value.status = t.t(
+      'pages.newCredential.form.invalidMessages.status',
+    );
+    hasErrors = true;
+  }
+  if (!inputData.value.credentialType) {
+    invalidFields.value.credentialType = t.t(
+      'pages.newCredential.form.invalidMessages.credentialType',
+    );
+    hasErrors = true;
+  }
+  if (!diplomaFile.value || diplomaFile.value.length === 0) {
+    invalidFields.value.diplomaFile = t.t(
+      'pages.newCredential.form.invalidMessages.degreeFile',
+    );
+    hasErrors = true;
+  }
+
+  return hasErrors;
+}
+
+async function saveDocument() {
+  let res = null;
+  try {
+    res = await postCredential(inputData.value);
+    return res;
+  } catch (error) {
+    res = error;
+  }
+  return res;
 }
 
 async function formActionClick(id) {
   if (id === 'save') {
     // TODO: add validation
+    if (validateModel()) {
+      notify.pushError(
+        t.t('pages.newCredential.form.invalidMessages.fillAllRequired'),
+      );
+      return;
+    }
     loading.value = true;
     const res = await saveDocument();
-    if (res.status === 201) {
+    console.log('saveDocument res:', res);
+    if (res?.status === 201) {
       notify.pushSuccess(t.t('pages.newCredential.form.documentCreated'));
       router.push({ name: 'dashboard' });
     } else {
@@ -100,10 +163,12 @@ async function formActionClick(id) {
     router.push({ name: 'dashboard' });
   }
 }
+
+const locale = computed(() => (t?.locale.value === 'lv' ? 'lv-LV' : 'en-EN'));
 </script>
 <template>
   <div>
-    <!-- TODO: add componente translations -->
+    <!-- TODO: add components translations -->
     <LxForm
       :showHeader="false"
       :columnCount="2"
@@ -126,10 +191,6 @@ async function formActionClick(id) {
       ]"
       @button-click="formActionClick"
     >
-      <LxRow :label="t.t('pages.newCredential.form.id')" :required="true">
-        <template #info>TODO: get from session</template>
-        <LxTextInput v-model="inputData.id" :disabled="loading" />
-      </LxRow>
       <LxRow
         :label="t.t('pages.newCredential.form.graduatePublicKey')"
         :required="true"
@@ -140,19 +201,16 @@ async function formActionClick(id) {
           :disabled="loading"
         />
       </LxRow>
+      <LxRow :label="t.t('pages.newCredential.form.issuerId')" :required="true">
+        <template #info>TODO: get from session</template>
+        <LxTextInput v-model="inputData.issuerId" :disabled="loading" />
+      </LxRow>
       <LxRow
         :label="t.t('pages.newCredential.form.issuerSignature')"
         :required="true"
       >
         <template #info>TODO: get from session</template>
         <LxTextInput v-model="inputData.issuerSignature" :disabled="loading" />
-      </LxRow>
-      <LxRow
-        :label="t.t('pages.newCredential.form.issuerPublicKey')"
-        :required="true"
-      >
-        <template #info>TODO: get from session</template>
-        <LxTextInput v-model="inputData.issuerPublicKey" :disabled="loading" />
       </LxRow>
 
       <LxRow
@@ -168,19 +226,24 @@ async function formActionClick(id) {
       <LxRow
         :label="t.t('pages.newCredential.form.degreeName')"
         :required="true"
+        columnSpan="2"
       >
         <LxTextInput
           v-model="inputData.diplomaMetadata.degreeName"
           :disabled="loading"
+          :invalid="invalidFields.diplomaMetadata.degreeName"
+          :invalidationMessage="invalidFields.diplomaMetadata.degreeName"
         />
       </LxRow>
 
       <LxRow :label="t.t('pages.newCredential.form.status')" :required="true">
         <LxValuePicker
           v-model="inputData.status"
-          :items="statusItmes"
+          :items="statusItems"
           variant="tags-custom"
           :disabled="loading"
+          :invalid="invalidFields.status"
+          :invalidationMessage="invalidFields.status"
         >
           <template #customItem="item">
             <LxStateDisplay :value="item.name" :dictionary="statusDict" />
@@ -195,6 +258,8 @@ async function formActionClick(id) {
           v-model="inputData.credentialType"
           :items="credentialTypeItems"
           :disabled="loading"
+          :invalid="invalidFields.credentialType"
+          :invalidationMessage="invalidFields.credentialType"
         />
       </LxRow>
 
@@ -202,13 +267,15 @@ async function formActionClick(id) {
         :label="t.t('pages.newCredential.form.issueDate')"
         :required="true"
       >
-        {{ t.locale }}
         <LxDateTimePicker
           v-model="inputData.diplomaMetadata.issueDate"
           :disabled="loading"
           :locale="{
-            locale: t.locale === 'lv' ? 'lv' : 'en',
+            locale: locale,
           }"
+          :maxDate="inputData.diplomaMetadata.expiryDate"
+          :invalid="invalidFields.diplomaMetadata.issueDate"
+          :invalidationMessage="invalidFields.diplomaMetadata.issueDate"
           :texts="t.tm('pages.verification.dateTimePicker')"
         />
       </LxRow>
@@ -217,8 +284,9 @@ async function formActionClick(id) {
           v-model="inputData.diplomaMetadata.expiryDate"
           :disabled="loading"
           :locale="{
-            locale: t.locale === 'lv' ? 'lv' : 'en',
+            locale: locale,
           }"
+          :minDate="inputData.diplomaMetadata.issueDate"
           :texts="t.tm('pages.verification.dateTimePicker')"
         />
       </LxRow>
@@ -226,13 +294,19 @@ async function formActionClick(id) {
       <LxRow
         :label="t.t('pages.newCredential.form.degreeFile')"
         :required="true"
+        class="file-uploader-row"
       >
         <LxFileUploader
           v-model="diplomaFile"
           :allowedFileExtensions="['.pdf']"
           :disabled="loading"
+          :invalid="invalidFields.diplomaFile"
+          :invalidationMessage="invalidFields.diplomaFile"
           :texts="t.tm('pages.verification.fileUploader')"
         />
+        <p class="lx-invalidation-message" v-if="invalidFields.diplomaFile">
+          {{ invalidFields.diplomaFile }}
+        </p>
       </LxRow>
     </LxForm>
   </div>

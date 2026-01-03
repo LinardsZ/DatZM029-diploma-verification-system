@@ -17,9 +17,10 @@ export default (options = {}) => {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${getSessionKey()}`,
+      // Authorization: `Bearer ${getSessionKey()}`,
+      'X-API-Key': 'test',
     },
   });
-  http.interceptors.response.use(null, useExceptionInterceptor && exceptionInterceptor);
+  // http.interceptors.response.use(null, useExceptionInterceptor && exceptionInterceptor);
   return http;
 };

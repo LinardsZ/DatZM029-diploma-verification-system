@@ -3,6 +3,7 @@ import { ref, watch } from 'vue';
 import { LxFileUploader, LxButton, LxInfoBox } from '@wntr/lx-ui';
 import { getFileHash } from '@/utils/generalUtils';
 import { useI18n } from 'vue-i18n';
+import { verifyDiplomaHash } from '@/services/credentialService';
 
 const t = useI18n();
 
@@ -24,12 +25,8 @@ watch(file, async (newValue) => {
 });
 
 function verifyCall() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        status: 300,
-      });
-    }, 2000);
+  return verifyDiplomaHash({
+    diplomaHash: fileHash.value,
   });
 }
 
@@ -37,7 +34,6 @@ async function verifyFile() {
   loading.value = true;
   try {
     const res = await verifyCall();
-
     if (res.status === 200) {
       success.value = true;
     } else {
@@ -45,6 +41,7 @@ async function verifyFile() {
     }
   } catch (e) {
     console.error(e);
+    error.value = true;
   } finally {
     loading.value = false;
   }

@@ -39,6 +39,8 @@ import '@wntr/lx-ui/dist/styles/lx-date-pickers.css';
 import '@wntr/lx-ui/dist/styles/lx-data-visualizer.css';
 import '@wntr/lx-ui/dist/styles/lx-stack.css';
 
+import '@wntr/lx-ui/dist/styles/lx-pt-lasis.css';
+
 import '@/assets/styles.css';
 
 const myApp = createApp(App);

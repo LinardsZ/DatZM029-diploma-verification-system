@@ -17,5 +17,10 @@ const t = useI18n();
       :label="t.t('pages.verification.title')"
       :to="{ name: 'verification' }"
     />
+    <LxTile
+      icon="inspection"
+      :label="t.t('pages.verificationFull.title')"
+      :to="{ name: 'verificationFull' }"
+    />
   </div>
 </template>

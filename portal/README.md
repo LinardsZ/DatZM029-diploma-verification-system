@@ -48,8 +48,7 @@ Environment variables are loaded from `.env` files in the root directory. See [V
 example .env file:
 
 ```sh
-# SERVICE_URL=https://localhost:43345/api/1.0/
-SERVICE_URL=https://localhost:44342/api
+SERVICE_URL=https://localhost:44342/
 AUTH_URL=https://localhost:44342/auth
 ENVIRONMENT=development
 PUBLIC_URL=https://localhost:44342/
