@@ -7,3 +7,7 @@ export function postCredential(data) {
 export function verifyDiplomaHash(data) {
   return api().post('/verify/hash', data);
 }
+
+export function verifyDiplomaSignature(data) {
+  return api().post('/verify/signature', data);
+}

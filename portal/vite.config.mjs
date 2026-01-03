@@ -39,6 +39,7 @@ const getEnvVariables = (mode, serving) => {
     BASE_PATH: env.BASE_PATH,
     BASE_URL: env.PUBLIC_URL,
 
+    BUILD_DATE: new Date().toISOString(),
     // dev only
     VUE_APP_SERVICE_URL_PROXY: '',
     VUE_APP_AUTH_URL_PROXY: '',

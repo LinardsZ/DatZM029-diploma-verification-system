@@ -2,9 +2,9 @@
 import { computed, ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
-import { LxShell, LxIcon } from '@wntr/lx-ui';
+import { LxShell, LxIcon, lxDateUtils } from '@wntr/lx-ui';
 import { invoke, until, useIdle, useIntervalFn } from '@vueuse/core';
-import { SYSTEM_NAME } from '@/constants';
+import { SYSTEM_NAME, APP_CONFIG } from '@/constants';
 
 import LoginView from '@/views/Login.vue';
 import useErrors from '@/hooks/useErrors';
@@ -60,6 +60,11 @@ const nav = computed(() => [
     label: i18n.t('pages.verification.title'),
     icon: 'search',
     to: { name: 'verification' },
+  },
+  {
+    label: i18n.t('pages.verificationFull.title'),
+    icon: 'inspection',
+    to: { name: 'verificationFull' },
   },
 ]);
 
@@ -378,7 +383,10 @@ function idleModalSecondary() {
                 {{ i18n.t("shell.footer.footerText") }}
               </p>
               <p class="footer-sitemap-text">
-                {{ i18n.t("shell.footer.versionText") }} 0.1.11 20.12.2022
+                {{ i18n.t("shell.footer.versionText") }} 1.0.0
+                {{
+                  lxDateUtils.formatDate(APP_CONFIG?.buildDate) || "10.01.2026."
+                }}
               </p>
             </div>
           </div>

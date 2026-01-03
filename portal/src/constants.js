@@ -12,6 +12,7 @@ export const APP_CONFIG = {
   defaultLocale: 'lv',
   supportedLocales: ['lv', 'en'],
   fallbackLocale: 'en',
+  buildDate: window.config.buildDate,
 };
 
 export const AUTH_KEY_TOKEN_SESSION = 'blockchain-sessionkey';

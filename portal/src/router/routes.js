@@ -49,6 +49,14 @@ const routes = [
         component: () => import('@/views/Verification.vue'),
       },
       {
+        path: '/verification-full',
+        name: 'verificationFull',
+        meta: {
+          title: 'pages.verificationFull.title',
+        },
+        component: () => import('@/views/VerificationFull.vue'),
+      },
+      {
         path: '/auth-done',
         name: 'authDone',
         component: () => import('@/views/AuthDone.vue'),

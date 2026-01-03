@@ -1,10 +1,10 @@
 {
   "title": {
     "prefix": "",
-    "fullName": "Blockchain",
+    "fullName": "TrustMeChain",
     "subheader": "Document Verification System",
-    "shortName": "Blockchain",
-    "default": "Blockchain"
+    "shortName": "TrustMeChain",
+    "default": "TrustMeChain"
   },
   "shell": {
     "notifications": {
@@ -171,6 +171,17 @@
         "previousDecade": "Previous decade",
         "scrollUp": "Scroll up",
         "scrollDown": "Scroll down"
+      }
+    },
+    "verificationFull": {
+      "title": "Full Document Verification",
+      "form": {
+      "upload": "Document Upload",
+      "sign": "Document Owner Verification",
+      "view": "Document Preview",
+      "successLabel": "Verification Successful",
+      "verifyOwner": "Verify Document Owner",
+      "reset": "Verify Another Document"
       }
     },
 
