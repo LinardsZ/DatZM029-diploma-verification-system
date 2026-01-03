@@ -45,7 +45,7 @@ const shellMode = computed(() => {
   return ret;
 });
 
-const nav = [
+const nav = computed(() => [
   {
     label: i18n.t('pages.dashboard.title'),
     icon: 'dashboard',
@@ -61,7 +61,7 @@ const nav = [
     icon: 'search',
     to: { name: 'verification' },
   },
-];
+]);
 
 const systemName = computed(() => i18n.t('title.shortName'));
 
