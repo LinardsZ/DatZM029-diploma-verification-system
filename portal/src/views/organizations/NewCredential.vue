@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch } from "vue";
 import {
   LxForm,
   LxRow,
@@ -8,11 +8,12 @@ import {
   LxFileUploader,
   LxValuePicker,
   LxStateDisplay,
-} from '@wntr/lx-ui';
-import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
-import useNotifyStore from '@/stores/useNotifyStore';
-import { getFileHash } from '@/utils/generalUtils';
+} from "@wntr/lx-ui";
+import { useI18n } from "vue-i18n";
+import { useRouter } from "vue-router";
+import useNotifyStore from "@/stores/useNotifyStore";
+import { getFileHash } from "@/utils/generalUtils";
+import { postCredential } from "@/services/credentialService";
 
 const t = useI18n();
 const router = useRouter();
@@ -22,12 +23,10 @@ const diplomaFile = ref();
 const loading = ref(false);
 
 const inputData = ref({
-  id: null, // TODO: remove
-  graduatePublicKey: null, // TODO: remove
-  issuerSignature: null, // TODO: remove
-  issuerPublicKey: null, // TODO: remove
-
   diplomaHash: null,
+  graduatePublicKey: 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1234...', // TODO: get from idk where
+  issuerId: 'lu', // TODO: get from session
+  issuerSignature: '3045022100abcd...', // TODO: get from idk where
   diplomaMetadata: {
     universityName: null,
     degreeName: null,
@@ -39,26 +38,26 @@ const inputData = ref({
 });
 
 const statusItmes = [
-  { id: 'Valid', name: 'Valid' },
-  { id: 'Invalid', name: 'Invalid' },
+  { id: "Valid", name: "Valid" },
+  { id: "Invalid", name: "Invalid" },
 ];
 
 const statusDict = [
   {
-    value: 'Valid',
-    displayName: t.t('pages.newCredential.form.valid'),
-    displayType: 'new',
+    value: "Valid",
+    displayName: t.t("pages.newCredential.form.valid"),
+    displayType: "new",
   },
   {
-    value: 'Invalid',
-    displayName: t.t('pages.newCredential.form.invalid'),
-    displayType: 'inactive',
+    value: "Invalid",
+    displayName: t.t("pages.newCredential.form.invalid"),
+    displayType: "inactive",
   },
 ];
 
 const credentialTypeItems = [
-  { id: 'Diploma', name: t.t('pages.newCredential.form.diploma') },
-  { id: 'Certificate', name: t.t('pages.newCredential.form.certificate') },
+  { id: "Diploma", name: t.t("pages.newCredential.form.diploma") },
+  { id: "Certificate", name: t.t("pages.newCredential.form.certificate") },
 ];
 
 watch(diplomaFile, async (newValue) => {
@@ -71,39 +70,68 @@ watch(diplomaFile, async (newValue) => {
   }
 });
 
-function saveDocument() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const mockResponse = {
-        status: 201,
-        message: "Document saved successfully!",
-      };
-      resolve(mockResponse);
-    }, 2000);
-  });
+async function saveDocument() {
+  // return new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     const mockResponse = {
+  //       status: 201,
+  //       message: "Document saved successfully!",
+  //     };
+  //     resolve(mockResponse);
+  //   }, 2000);
+  // });
+
+  // const data = {
+  //   ID: inputData.value.id,
+  //   DiplomaHash: inputData.value.diplomaHash,
+  //   DiplomaMetadata: {
+  //     UniversityName: inputData.value.diplomaMetadata.universityName,
+  // }
+  let res = null;
+  try {
+    // const data = {
+    //   DiplomaHash: inputData.value.diplomaHash,
+    //   GraduatePublicKey: inputData.value.graduatePublicKey,
+    //   IssuerId: inputData.value.issuerId,
+    //   DiplomaMetadata: {
+    //     UniversityName: inputData.value.diplomaMetadata.universityName,
+    //     DegreeName: inputData.value.diplomaMetadata.degreeName,
+    //     IssueDate: inputData.value.diplomaMetadata.issueDate,
+    //     ExpiryDate: inputData.value.diplomaMetadata.expiryDate,
+    //   },
+    //   Status: inputData.value.status,
+    //   CredentialType: inputData.value.credentialType,
+    // };
+    res = await postCredential(inputData.value);
+    return res;
+  } catch (error) {
+    res = error;
+  }
+  return res;
 }
 
 async function formActionClick(id) {
-  if (id === 'save') {
+  if (id === "save") {
     // TODO: add validation
     loading.value = true;
     const res = await saveDocument();
-    if (res.status === 201) {
-      notify.pushSuccess(t.t('pages.newCredential.form.documentCreated'));
-      router.push({ name: 'dashboard' });
+    if (res?.status === 201) {
+      notify.pushSuccess(t.t("pages.newCredential.form.documentCreated"));
+      router.push({ name: "dashboard" });
     } else {
-      notify.pushError(t.t('pages.newCredential.form.creationFailed'));
+      notify.pushError(t.t("pages.newCredential.form.creationFailed"));
     }
     loading.value = false;
   } else {
     // TODO: can add route guard and confirmStore
-    router.push({ name: 'dashboard' });
+    router.push({ name: "dashboard" });
   }
 }
 </script>
 <template>
   <div>
     <!-- TODO: add componente translations -->
+    <pre>{{ inputData }}</pre>
     <LxForm
       :showHeader="false"
       :columnCount="2"
@@ -126,10 +154,6 @@ async function formActionClick(id) {
       ]"
       @button-click="formActionClick"
     >
-      <LxRow :label="t.t('pages.newCredential.form.id')" :required="true">
-        <template #info>TODO: get from session</template>
-        <LxTextInput v-model="inputData.id" :disabled="loading" />
-      </LxRow>
       <LxRow
         :label="t.t('pages.newCredential.form.graduatePublicKey')"
         :required="true"
@@ -140,7 +164,7 @@ async function formActionClick(id) {
           :disabled="loading"
         />
       </LxRow>
-      <LxRow
+      <!-- <LxRow
         :label="t.t('pages.newCredential.form.issuerSignature')"
         :required="true"
       >
@@ -153,7 +177,7 @@ async function formActionClick(id) {
       >
         <template #info>TODO: get from session</template>
         <LxTextInput v-model="inputData.issuerPublicKey" :disabled="loading" />
-      </LxRow>
+      </LxRow> -->
 
       <LxRow
         :label="t.t('pages.newCredential.form.universityName')"
@@ -202,7 +226,6 @@ async function formActionClick(id) {
         :label="t.t('pages.newCredential.form.issueDate')"
         :required="true"
       >
-        {{ t.locale }}
         <LxDateTimePicker
           v-model="inputData.diplomaMetadata.issueDate"
           :disabled="loading"
