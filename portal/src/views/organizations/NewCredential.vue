@@ -14,21 +14,23 @@ import { useRouter } from 'vue-router';
 import useNotifyStore from '@/stores/useNotifyStore';
 import { getFileHash } from '@/utils/generalUtils';
 import { postCredential } from '@/services/credentialService';
+import useAuthStore from '@/stores/useAuthStore';
 
 const t = useI18n();
 const router = useRouter();
 const notify = useNotifyStore();
+const authStore = useAuthStore();
 
 const diplomaFile = ref();
 const loading = ref(false);
 
 const inputData = ref({
   diplomaHash: null,
-  graduatePublicKey: 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1234...', // TODO: get from idk where
-  issuerId: 'lu', // TODO: get from session
-  issuerSignature: '3045022100abcd...', // TODO: get from idk where
+  graduatePublicKey: '', // TODO: get from idk where
+  issuerId: authStore.session.institution.id,
+  issuerSignature: authStore.session.institution.signature,
   diplomaMetadata: {
-    universityName: 'Latvijas Universitāte', // TODO: get from session
+    universityName: authStore.session.institution.name,
     degreeName: null,
     issueDate: null,
     expiryDate: null,

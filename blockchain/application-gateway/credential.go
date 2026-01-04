@@ -6,7 +6,6 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"os"
 	"path"
@@ -52,9 +51,10 @@ type DiplomaMetadata struct {
 
 // Issuer represents an authorized organization
 type Issuer struct {
-	ID     string `json:"id"`
-	Name   string `json:"name"`
-	APIKey string `json:"apiKey"`
+	ID        string `json:"id"`
+	Name      string `json:"name"`
+	APIKey    string `json:"apiKey"`
+	Signature string `json:"signature"`
 }
 
 // CreateCredentialRequest for POST /credential
@@ -79,6 +79,14 @@ type VerifySignatureRequest struct {
 }
 
 var issuers = []Issuer{}
+
+type User struct {
+	IssuerID     string `json:"issuerId"`
+	Username     string `json:"username"`
+	PasswordHash string `json:"passwordHash"`
+	FirstName    string `json:"firstName"`
+	LastName     string `json:"lastName"`
+}
 
 // FabricService wraps gateway connection
 type FabricService struct {
@@ -192,11 +200,23 @@ func (f *FabricService) CreateCredential(cred *Credential) error {
 
 // LoadIssuers loads authorized issuers from JSON file
 func LoadIssuers() error {
-	data, err := ioutil.ReadFile("../../backend/issuers.json")
+	data, err := os.ReadFile("../../backend/issuers.json")
 	if err != nil {
 		return err
 	}
 	return json.Unmarshal(data, &issuers)
+}
+
+func LoadUsers() ([]User, error) {
+	data, err := os.ReadFile("../../backend/users.json")
+	if err != nil {
+		return nil, err
+	}
+	var users []User
+	if err := json.Unmarshal(data, &users); err != nil {
+		return nil, err
+	}
+	return users, nil
 }
 
 // ValidateAPIKey checks if the provided API key is valid for the issuer
@@ -239,6 +259,55 @@ func main() {
 			return
 		}
 		c.Next()
+	})
+
+	router.POST("/auth/login", func(c *gin.Context) {
+		var req struct {
+			Username string `json:"username"`
+			Password string `json:"password"`
+		}
+		if err := c.ShouldBindJSON(&req); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request", "details": err.Error()})
+			return
+		}
+
+		users, err := LoadUsers()
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to load users"})
+			return
+		}
+
+		// Hash the input password
+		h := sha256.New()
+		h.Write([]byte(req.Password))
+		passwordHash := hex.EncodeToString(h.Sum(nil))
+
+		for _, user := range users {
+			if user.Username == req.Username && user.PasswordHash == passwordHash {
+				var issuer Issuer
+				for _, iss := range issuers {
+					if iss.ID == user.IssuerID {
+						issuer = iss
+						break
+					}
+				}
+				var userResponse = struct {
+					Issuer    Issuer `json:"issuer"`
+					Username  string `json:"username"`
+					FirstName string `json:"firstName"`
+					LastName  string `json:"lastName"`
+				}{
+					Issuer:    issuer,
+					Username:  user.Username,
+					FirstName: user.FirstName,
+					LastName:  user.LastName,
+				}
+				c.JSON(http.StatusOK, userResponse)
+				return
+			}
+		}
+
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid credentials"})
 	})
 
 	// GET /credential/:id - Read credential by ID
