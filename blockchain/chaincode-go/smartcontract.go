@@ -225,6 +225,30 @@ func (s *SmartContract) GetAllCredentials(ctx contractapi.TransactionContextInte
 	return credentials, nil
 }
 
+func (s *SmartContract) RevokeCredential(ctx contractapi.TransactionContextInterface, id string) error {
+	key := CredentialKey + id
+
+	data, err := ctx.GetStub().GetState(key)
+	if err != nil {
+		return err
+	}
+
+	if data == nil {
+		return fmt.Errorf("credential not found")
+	}
+
+	var credential Credential
+	if err := json.Unmarshal(data, &credential); err != nil {
+		return err
+	}
+
+	credential.Status = "Revoked"
+
+	newData, _ := json.Marshal(credential)
+	
+	return ctx.GetStub().PutState(key, newData)
+}
+
 func (s *SmartContract) ReadIssuer(ctx contractapi.TransactionContextInterface, id string) (*Issuer, error) {
 	key := IssuerKey + id
 

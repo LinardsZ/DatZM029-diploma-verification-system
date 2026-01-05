@@ -190,6 +190,16 @@ func (f *FabricService) CreateCredential(cred *Credential) error {
 	return err
 }
 
+func (f *FabricService) RevokeCredential(id string) error {
+	_, err := f.contract.SubmitTransaction("RevokeCredential", id)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 // LoadIssuers loads authorized issuers from JSON file
 func LoadIssuers() error {
 	data, err := ioutil.ReadFile("../../backend/issuers.json")
@@ -363,6 +373,19 @@ func main() {
 			"message":    "Graduate signature verified",
 			"credential": credential,
 		})
+	})
+
+	// PATCH /credential/:id/revoke - Revoke credential by ID
+	router.PATCH("/credential/:id/revoke", func(c *gin.Context) {
+		id := c.Param("id")
+
+		err := fs.RevokeCredential(id)
+		if err != nil {
+			c.JSON(http.StatusUnprocessableEntity, gin.H{"error": "Credential not found or could not be processed", "details": err.Error()})
+			return
+		}
+
+		c.Status(http.StatusNoContent)
 	})
 
 	fmt.Println("Gateway running on http://0.0.0.0:8080")

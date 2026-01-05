@@ -191,3 +191,17 @@ This will:
 - Remove all Docker volumes
 - Clean up the network
 
+## Troubleshooting
+
+1. Docker containers are not starting with the error that the port is in use
+```
+Error response from daemon: ports are not available: exposing port TCP 0.0.0.0:9051 -> 127.0.0.1:0: /forwards/expose returned unexpected status: 500
+```
+
+**Solution:** Restart WinNAT to release reserved port ranges.
+
+PowerShell with elevated privileges:
+```
+net stop winnat
+net start winnat
+```
