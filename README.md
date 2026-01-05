@@ -122,7 +122,7 @@ peer chaincode invoke -o localhost:7050 \
 
 ### 1. Build and start the gateway service
 ```bash
-cd ~/DatZM029-diploma-verification-system/blockchain/test-network/application-gateway
+cd ~/DatZM029-diploma-verification-system/blockchain/application-gateway
 go build -o gateway
 ./gateway
 ```

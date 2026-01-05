@@ -57,6 +57,15 @@ const routes = [
         component: () => import('@/views/VerificationFull.vue'),
       },
       {
+        path: '/auth',
+        name: 'auth',
+        component: () => import('@/views/Auth.vue'),
+        meta: {
+          title: 'pages.auth.title',
+          anonymous: true,
+        },
+      },
+      {
         path: '/auth-done',
         name: 'authDone',
         component: () => import('@/views/AuthDone.vue'),

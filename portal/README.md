@@ -1,8 +1,8 @@
-# `${REPO_NAME_TITLE}`
+# `$Credential blockchain portal`
 
 <!-- TOC -->
 
-- [${REPO_NAME_TITLE}](#repo_name_title)
+- [$Credential blockchain portal](#credential-blockchain-portal)
   - [Development](#development)
   - [Requirements](#requirements)
   - [Customize configuration](#customize-configuration)
@@ -54,16 +54,4 @@ ENVIRONMENT=development
 PUBLIC_URL=https://localhost:44342/
 USE_MOCK_MIDDLEWARE=false
 ```
-
-## :warning: IMPORTANT NOTES :warning:
-
-It's **very important** that the webapp (this portal) can be built and run locally as described below, with no extra steps:
-
-- Clone this repo;
-- Add `.env` file to my local project (see above);
-- Run `pnpm i`;
-- Press **F5** ("Run and Debug" in VSCode);
-- Webapp starts in my local browser and can call published Dev API (without any CORS, HTTPS, Authentication redirect and/or other problems);
-
-Other ways to run this webapp (e.g., connecting to locally run API, or connecting to test env, etc) are permitted, of course, but should be considered **additional** methods.
 
