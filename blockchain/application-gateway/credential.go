@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"crypto/sha256"
 	"crypto/x509"
 	"encoding/hex"
@@ -17,6 +16,7 @@ import (
 	"github.com/hyperledger/fabric-gateway/pkg/hash"
 	"github.com/hyperledger/fabric-gateway/pkg/identity"
 	"golang.org/x/crypto/openpgp"
+	"golang.org/x/crypto/openpgp/clearsign"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )
@@ -445,8 +445,6 @@ func main() {
 
 		// Verify PGP signature
 		publicKeyArmored := credential.GraduatePublicKey
-		signatureArmored := req.GraduateSignature
-		messageToVerify := credential.ID
 
 		// Decode public key
 		keyring, err := openpgp.ReadArmoredKeyRing(strings.NewReader(publicKeyArmored))
@@ -458,17 +456,23 @@ func main() {
 			return
 		}
 
-		// Decode signature
-		signatureReader := strings.NewReader(signatureArmored)
-		messageReader := bytes.NewReader([]byte(messageToVerify))
+		block, _ := clearsign.Decode([]byte(req.GraduateSignature))
+		if block == nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": "invalid clearsigned message format",
+			})
+			return
+		}
 
-		// Verify the signature
-		_, err = openpgp.CheckArmoredDetachedSignature(keyring, messageReader, signatureReader)
+		// 3. Verify signature
+		_, err = openpgp.CheckDetachedSignature(
+			keyring,
+			strings.NewReader(string(block.Bytes)),
+			block.ArmoredSignature.Body,
+		)
 		if err != nil {
-			c.JSON(http.StatusUnauthorized, gin.H{
-				"verified": false,
-				"error":    "Signature verification failed",
-				"details":  err.Error(),
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": "signature verification failed",
 			})
 			return
 		}
