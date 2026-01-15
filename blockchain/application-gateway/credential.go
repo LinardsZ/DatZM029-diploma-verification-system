@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"crypto/sha256"
 	"crypto/x509"
 	"encoding/hex"
@@ -459,7 +460,7 @@ func main() {
 
 		// Decode signature
 		signatureReader := strings.NewReader(signatureArmored)
-		messageReader := strings.NewReader(messageToVerify)
+		messageReader := bytes.NewReader([]byte(messageToVerify))
 
 		// Verify the signature
 		_, err = openpgp.CheckArmoredDetachedSignature(keyring, messageReader, signatureReader)
