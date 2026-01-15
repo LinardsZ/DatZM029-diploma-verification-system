@@ -57,11 +57,6 @@ const nav = computed(() => {
       icon: 'registry',
       to: { name: 'credentials' },
     },
-    // {
-    //   label: i18n.t('pages.verification.title'),
-    //   icon: 'search',
-    //   to: { name: 'verification' },
-    // },
     {
       label: i18n.t('pages.verification.title'),
       icon: 'inspection',
@@ -70,17 +65,12 @@ const nav = computed(() => {
   ];
   const guest = [
     {
-      label: i18n.t('pages.home.title'),
-      icon: 'home',
-      to: { name: 'home' },
+      label: i18n.t('pages.dashboard.title'),
+      icon: 'dashboard',
+      to: { name: 'dashboard' },
     },
     {
       label: i18n.t('pages.verification.title'),
-      icon: 'search',
-      to: { name: 'verification' },
-    },
-    {
-      label: i18n.t('pages.verificationFull.title'),
       icon: 'inspection',
       to: { name: 'verificationFull' },
     },
@@ -333,7 +323,7 @@ function idleModalSecondary() {
   logout();
 }
 
-const texts = {
+const texts = ref({
   confirmModalSecondaryDefaultLabel: i18n.t(
     'shell.notifications.logoutConfirmNo',
   ),
@@ -359,7 +349,7 @@ const texts = {
   systemFontsOn: i18n.t('shell.systemFontsOn'),
   touchModeOff: i18n.t('shell.touchModeOff'),
   touchModeOn: i18n.t('shell.touchModeOn'),
-};
+});
 </script>
 <template>
   <div>

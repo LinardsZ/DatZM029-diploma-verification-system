@@ -7,7 +7,6 @@ import {
   LxForm,
   LxRow,
   LxSteps,
-  LxTextInput,
   lxDateUtils,
   LxTextArea,
 } from '@wntr/lx-ui';
@@ -30,11 +29,12 @@ const error = ref(false);
 const loading = ref(false);
 
 const stepModel = ref('default');
-const graduateSignature = ref(
-  'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1234...',
-);
+const graduateSignature = ref(null);
 const credentialId = ref(null);
 const fullDiplomaData = ref(null);
+
+const placeholder =
+  '-----BEGIN PGP SIGNED MESSAGE----- \nHash: SHA256\n\n xxxxxxxxxxxxxxx\n-----BEGIN PGP SIGNATURE-----\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n-----END PGP SIGNATURE-----';
 
 function getState(stepId) {
   if (stepModel.value === 'default') {
@@ -96,7 +96,7 @@ async function verifyFile() {
   loading.value = true;
   try {
     const res = await verifyCall();
-    console.log('verifyCall res:', res);
+
     if (res.status === 200) {
       credentialId.value = res.data.credentialId;
       success.value = true;
@@ -124,8 +124,7 @@ function resetFull() {
   error.value = false;
   file.value = null;
   stepModel.value = 'default';
-  graduateSignature.value =
-    'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1234...';
+  graduateSignature.value = null;
   credentialId.value = null;
   fullDiplomaData.value = null;
 }
@@ -139,10 +138,14 @@ async function verifyFull() {
     });
     fullDiplomaData.value = res.data.credential;
     stepModel.value = 'view';
-    notification.pushSuccess('Dokumenta paraksts veiksmīgi pārbaudīts.');
+    notification.pushSuccess(
+      t.t('pages.verificationFull.form.successFinalSuccess'),
+    );
   } catch (e) {
     console.error(e);
-    notification.pushError('Kļūda pārbaudot dokumenta parakstu.');
+    notification.pushError(
+      t.t('pages.verificationFull.form.successFinalError'),
+    );
   } finally {
     loading.value = false;
   }
@@ -187,9 +190,17 @@ async function verifyFull() {
           />
         </div>
         <div v-if="stepModel === 'sign'">
-          Luuudzu paraksti mani:
-          <p>{{ credentialId }}</p>
-          <LxTextArea v-model="graduateSignature" />
+          <div style="padding: 1rem 0 1rem 0">
+            <p style="font-weight: var(--font-weight-bold)">
+              {{ t.t('pages.verificationFull.form.signMessageTitle') }}
+            </p>
+            <p>{{ credentialId }}</p>
+          </div>
+          <LxTextArea
+            v-model="graduateSignature"
+            :placeholder="placeholder"
+            :rows="12"
+          />
         </div>
       </LxRow>
       <template v-if="stepModel === 'view'">
@@ -199,9 +210,9 @@ async function verifyFull() {
         <LxRow label="diplomaHash">
           <p class="lx-data">{{ fullDiplomaData.diplomaHash || '—' }}</p>
         </LxRow>
-        <LxRow label="graduatePublicKey">
+        <!-- <LxRow label="graduatePublicKey">
           <p class="lx-data">{{ fullDiplomaData.graduatePublicKey || '—' }}</p>
-        </LxRow>
+        </LxRow> -->
         <LxRow label="issuerId">
           <p class="lx-data">{{ fullDiplomaData.issuerId || '—' }}</p>
         </LxRow>

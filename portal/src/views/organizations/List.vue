@@ -143,6 +143,5 @@ onMounted(() => {
         </LxStack>
       </template>
     </LxList>
-    <pre>{{ listDisplay }}</pre>
   </div>
 </template>

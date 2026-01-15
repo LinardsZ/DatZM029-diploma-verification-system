@@ -1,15 +1,16 @@
 <script setup>
 import { useI18n } from 'vue-i18n';
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import { LxForm, LxRow, LxTextInput } from '@wntr/lx-ui';
 import useAuthStore from '@/stores/useAuthStore';
 import api from '@/api';
-import router from '@/router';
 import useNotification from '@/stores/useNotifyStore';
+import { useRouter } from 'vue-router';
 
 const authStore = useAuthStore();
 const notification = useNotification();
 const t = useI18n();
+const router = useRouter();
 
 const loading = ref(false);
 const data = ref({

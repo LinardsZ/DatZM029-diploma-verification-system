@@ -7,7 +7,7 @@ import {
   LxDateTimePicker,
   LxFileUploader,
   LxValuePicker,
-  LxStateDisplay,
+  LxTextArea,
 } from '@wntr/lx-ui';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
@@ -201,10 +201,7 @@ const locale = computed(() => (t?.locale.value === 'lv' ? 'lv-LV' : 'en-EN'));
         :required="true"
         columnSpan="2"
       >
-        <LxTextInput
-          v-model="inputData.graduatePublicKey"
-          :disabled="loading"
-        />
+        <LxTextArea v-model="inputData.graduatePublicKey" :disabled="loading" />
       </LxRow>
       <!-- <LxRow :label="t.t('pages.newCredential.form.issuerId')" :required="true">
         <template #info>TODO: get from session</template>

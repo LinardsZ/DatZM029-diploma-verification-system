@@ -201,7 +201,10 @@
         "view": "Dokumenta apskatīšana",
         "successLabel": "Verifikācija izdevās",
         "verifyOwner": "Pārbaudīt dokumenta īpašnieku",
-        "reset": "Verificēt citu dokumentu"
+        "reset": "Verificēt citu dokumentu",
+        "signMessageTitle": "Parakstiet šo ziņojumu ar PGP atslēgu:",
+        "successFinalSuccess": "Dokumenta paraksts veiksmīgi pārbaudīts",
+        "successFinalError": "Kļūda pārbaudot dokumenta parakstu"
       }
     },
 

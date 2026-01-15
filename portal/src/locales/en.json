@@ -25,7 +25,25 @@
     "footer": {
         "footerText": "The portal is intended for verifying and checking diplomas and certificates",
         "versionText": "Version"
-    }
+    },
+    "userMenuTitle": "User menu",
+    "themeTitle": "Theme selection",
+    "themeAuto": "Automatic mode",
+    "themeLight": "Light mode",
+    "themeDark": "Dark mode",
+    "themeContrast": "High-contrast mode",
+    "animations": "Reduce motion",
+    "transparency": "Reduce transparency",
+    "fonts": "System fonts",
+    "touchMode": "Touch mode",
+    "reduceMotionOff": "No",
+    "reduceMotionOn": "Yes",
+    "reduceTransparencyOff": "No",
+    "reduceTransparencyOn": "Yes",
+    "systemFontsOff": "No",
+    "systemFontsOn": "Yes",
+    "touchModeOff": "No",
+    "touchModeOn": "Yes"
   },
   "pages": {
     "home": {
@@ -181,7 +199,10 @@
       "view": "Document Preview",
       "successLabel": "Verification Successful",
       "verifyOwner": "Verify Document Owner",
-      "reset": "Verify Another Document"
+      "reset": "Verify Another Document",
+      "signMessageTitle": "Sign this message with your PGP key:",
+      "successFinalSuccess": "Document signature successfully verified",
+      "successFinalError": "Error verifying the document signature"
       }
     },
 
@@ -208,7 +229,26 @@
         "invalidRightsDescription": "Contact the system administrator.",
         "invalidRequestTitle": "Invalid authorization request",
         "invalidRequestDescription": "Try to log in again."
-      }
+      },
+      "username": "Username",
+      "usernamePlaceholder": "Enter username",
+      "password": "Password",
+      "passwordPlaceholder": "Enter password",
+      "loginButton": "Log in",
+      "usernameEmpty": "Username cannot be empty",
+      "passwordEmpty": "Password cannot be empty",
+      "authError": "Authorization failed. Please check your username and password and try again."
+    },
+    "credentials": {
+      "title": "Documents",
+      "revoke": "Revoke diploma",
+      "revokeTitle": "Revoke diploma",
+      "revokeDesc": "Are you sure you want to revoke this diploma?",
+      "revokeConfirmYes": "Yes",
+      "revokeConfirmNo": "No",
+      "revokeSuccess": "Document successfully revoked",
+      "revokeError": "Failed to revoke the document. Try again",
+      "addCredential": "Add"
     },
     "siteMap": {
       "title": "Site Map",
