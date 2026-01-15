@@ -483,6 +483,14 @@ func main() {
 	router.GET("/credentials", func(c *gin.Context) {
 		universityFilter := c.Query("university")
 
+		// University ID is required for security
+		if universityFilter == "" {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": "University ID is required",
+			})
+			return
+		}
+
 		// Get all credentials from blockchain
 		credentials, err := fs.GetAllCredentials()
 		if err != nil {
@@ -493,24 +501,17 @@ func main() {
 			return
 		}
 
-		// Filter by university ID or name if provided
-		if universityFilter != "" {
-			var filtered []*Credential
-			universityLower := strings.ToLower(universityFilter)
-			for _, cred := range credentials {
-				// Check both issuerID and university name in metadata
-				if cred.IssuerID == universityFilter ||
-					strings.ToLower(cred.DiplomaMetadata.UniversityName) == universityLower ||
-					strings.Contains(strings.ToLower(cred.DiplomaMetadata.UniversityName), universityLower) {
-					filtered = append(filtered, cred)
-				}
+		// Filter by university ID
+		var filtered []*Credential
+		for _, cred := range credentials {
+			if cred.IssuerID == universityFilter {
+				filtered = append(filtered, cred)
 			}
-			credentials = filtered
 		}
 
 		c.JSON(http.StatusOK, gin.H{
-			"credentials": credentials,
-			"count":       len(credentials),
+			"credentials": filtered,
+			"count":       len(filtered),
 		})
 	})
 
