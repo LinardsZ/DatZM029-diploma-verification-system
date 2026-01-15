@@ -9,6 +9,7 @@ import {
   LxSteps,
   LxTextInput,
   lxDateUtils,
+  LxTextArea,
 } from '@wntr/lx-ui';
 import { getFileHash } from '@/utils/generalUtils';
 import { useI18n } from 'vue-i18n';
@@ -95,7 +96,7 @@ async function verifyFile() {
   loading.value = true;
   try {
     const res = await verifyCall();
-
+    console.log('verifyCall res:', res);
     if (res.status === 200) {
       credentialId.value = res.data.credentialId;
       success.value = true;
@@ -186,33 +187,35 @@ async function verifyFull() {
           />
         </div>
         <div v-if="stepModel === 'sign'">
-          <LxTextInput v-model="graduateSignature" />
+          Luuudzu paraksti mani:
+          <p>{{ credentialId }}</p>
+          <LxTextArea v-model="graduateSignature" />
         </div>
       </LxRow>
       <template v-if="stepModel === 'view'">
         <LxRow label="id">
-          <p class="lx-data">{{ fullDiplomaData.id || "—" }}</p>
+          <p class="lx-data">{{ fullDiplomaData.id || '—' }}</p>
         </LxRow>
         <LxRow label="diplomaHash">
-          <p class="lx-data">{{ fullDiplomaData.diplomaHash || "—" }}</p>
+          <p class="lx-data">{{ fullDiplomaData.diplomaHash || '—' }}</p>
         </LxRow>
         <LxRow label="graduatePublicKey">
-          <p class="lx-data">{{ fullDiplomaData.graduatePublicKey || "—" }}</p>
+          <p class="lx-data">{{ fullDiplomaData.graduatePublicKey || '—' }}</p>
         </LxRow>
         <LxRow label="issuerId">
-          <p class="lx-data">{{ fullDiplomaData.issuerId || "—" }}</p>
+          <p class="lx-data">{{ fullDiplomaData.issuerId || '—' }}</p>
         </LxRow>
         <LxRow label="issuerSignature">
-          <p class="lx-data">{{ fullDiplomaData.issuerSignature || "—" }}</p>
+          <p class="lx-data">{{ fullDiplomaData.issuerSignature || '—' }}</p>
         </LxRow>
         <LxRow label="universityName">
           <p class="lx-data">
-            {{ fullDiplomaData.diplomaMetadata.universityName || "—" }}
+            {{ fullDiplomaData.diplomaMetadata.universityName || '—' }}
           </p>
         </LxRow>
         <LxRow label="degreeName">
           <p class="lx-data">
-            {{ fullDiplomaData.diplomaMetadata.degreeName || "—" }}
+            {{ fullDiplomaData.diplomaMetadata.degreeName || '—' }}
           </p>
         </LxRow>
         <LxRow label="issueDate">
@@ -220,7 +223,7 @@ async function verifyFull() {
             {{
               lxDateUtils.formatDate(
                 fullDiplomaData.diplomaMetadata.issueDate,
-              ) || "—"
+              ) || '—'
             }}
           </p>
         </LxRow>
@@ -229,15 +232,15 @@ async function verifyFull() {
             {{
               lxDateUtils.formatDate(
                 fullDiplomaData.diplomaMetadata.expiryDate,
-              ) || "—"
+              ) || '—'
             }}
           </p>
         </LxRow>
         <LxRow label="status">
-          <p class="lx-data">{{ fullDiplomaData.status || "—" }}</p>
+          <p class="lx-data">{{ fullDiplomaData.status || '—' }}</p>
         </LxRow>
         <LxRow label="credentialType">
-          <p class="lx-data">{{ fullDiplomaData.credentialType || "—" }}</p>
+          <p class="lx-data">{{ fullDiplomaData.credentialType || '—' }}</p>
         </LxRow>
       </template>
       <template #footer>

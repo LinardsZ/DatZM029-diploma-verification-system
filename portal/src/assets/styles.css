@@ -105,6 +105,17 @@
   --button-primary-margin: 1rem 0 0 0;
 }
 
+.lx-list-wrapper .date-wrapper{
+  padding-right: 1rem;
+}
+.lx-list-wrapper .date-wrapper svg{
+  height: 1rem;
+  fill: var(--color-label);
+}
+.cred-list-wrapper .lx-list-wrapper .lx-state-icon{
+  margin-top: 7px;
+}
+
 @media (max-width: 800px) {
   .footer-sitemap {
     flex-direction: column;

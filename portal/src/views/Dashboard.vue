@@ -1,6 +1,9 @@
 <script setup>
 import { LxTile } from '@wntr/lx-ui';
 import { useI18n } from 'vue-i18n';
+import useAuthStore from '@/stores/useAuthStore';
+
+const authStore = useAuthStore();
 
 const t = useI18n();
 </script>
@@ -8,9 +11,10 @@ const t = useI18n();
 <template>
   <div class="lx-dashboard">
     <LxTile
-      icon="add"
-      :label="t.t('pages.newCredential.title')"
-      :to="{ name: 'newCredential' }"
+      v-if="authStore.isAuthorized"
+      icon="registry"
+      :label="t.t('pages.credentials.title')"
+      :to="{ name: 'credentials' }"
     />
     <LxTile
       icon="search"

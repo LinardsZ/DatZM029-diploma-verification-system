@@ -24,6 +24,8 @@ const authStore = useAuthStore();
 const diplomaFile = ref();
 const loading = ref(false);
 
+const issuer = JSON.parse(localStorage.getItem('userId'));
+
 const inputData = ref({
   diplomaHash: null,
   graduatePublicKey: '', // TODO: get from idk where
@@ -108,12 +110,12 @@ function validateModel() {
     );
     hasErrors = true;
   }
-  if (!inputData.value.status) {
-    invalidFields.value.status = t.t(
-      'pages.newCredential.form.invalidMessages.status',
-    );
-    hasErrors = true;
-  }
+  // if (!inputData.value.status) {
+  //   invalidFields.value.status = t.t(
+  //     'pages.newCredential.form.invalidMessages.status',
+  //   );
+  //   hasErrors = true;
+  // }
   if (!inputData.value.credentialType) {
     invalidFields.value.credentialType = t.t(
       'pages.newCredential.form.invalidMessages.credentialType',
@@ -152,10 +154,10 @@ async function formActionClick(id) {
     }
     loading.value = true;
     const res = await saveDocument();
-    console.log('saveDocument res:', res);
+
     if (res?.status === 201) {
       notify.pushSuccess(t.t('pages.newCredential.form.documentCreated'));
-      router.push({ name: 'dashboard' });
+      router.push({ name: 'credentials' });
     } else {
       notify.pushError(t.t('pages.newCredential.form.creationFailed'));
     }
@@ -171,6 +173,7 @@ const locale = computed(() => (t?.locale.value === 'lv' ? 'lv-LV' : 'en-EN'));
 <template>
   <div>
     <!-- TODO: add components translations -->
+
     <LxForm
       :showHeader="false"
       :columnCount="2"
@@ -196,26 +199,26 @@ const locale = computed(() => (t?.locale.value === 'lv' ? 'lv-LV' : 'en-EN'));
       <LxRow
         :label="t.t('pages.newCredential.form.graduatePublicKey')"
         :required="true"
+        columnSpan="2"
       >
-        <template #info>TODO: get from session</template>
         <LxTextInput
           v-model="inputData.graduatePublicKey"
           :disabled="loading"
         />
       </LxRow>
-      <LxRow :label="t.t('pages.newCredential.form.issuerId')" :required="true">
+      <!-- <LxRow :label="t.t('pages.newCredential.form.issuerId')" :required="true">
         <template #info>TODO: get from session</template>
         <LxTextInput v-model="inputData.issuerId" :disabled="loading" />
-      </LxRow>
-      <LxRow
+      </LxRow> -->
+      <!-- <LxRow
         :label="t.t('pages.newCredential.form.issuerSignature')"
         :required="true"
       >
         <template #info>TODO: get from session</template>
         <LxTextInput v-model="inputData.issuerSignature" :disabled="loading" />
-      </LxRow>
+      </LxRow> -->
 
-      <LxRow
+      <!-- <LxRow
         :label="t.t('pages.newCredential.form.universityName')"
         :required="true"
       >
@@ -224,7 +227,7 @@ const locale = computed(() => (t?.locale.value === 'lv' ? 'lv-LV' : 'en-EN'));
           v-model="inputData.diplomaMetadata.universityName"
           :disabled="loading"
         />
-      </LxRow>
+      </LxRow> -->
       <LxRow
         :label="t.t('pages.newCredential.form.degreeName')"
         :required="true"
@@ -238,7 +241,7 @@ const locale = computed(() => (t?.locale.value === 'lv' ? 'lv-LV' : 'en-EN'));
         />
       </LxRow>
 
-      <LxRow :label="t.t('pages.newCredential.form.status')" :required="true">
+      <!-- <LxRow :label="t.t('pages.newCredential.form.status')" :required="true">
         <LxValuePicker
           v-model="inputData.status"
           :items="statusItems"
@@ -251,7 +254,7 @@ const locale = computed(() => (t?.locale.value === 'lv' ? 'lv-LV' : 'en-EN'));
             <LxStateDisplay :value="item.name" :dictionary="statusDict" />
           </template>
         </LxValuePicker>
-      </LxRow>
+      </LxRow> -->
       <LxRow
         :label="t.t('pages.newCredential.form.credentialType')"
         :required="true"

@@ -34,6 +34,7 @@ async function verifyFile() {
   loading.value = true;
   try {
     const res = await verifyCall();
+    console.log('verifyCall res:', res);
     if (res.status === 200) {
       success.value = true;
     } else {
