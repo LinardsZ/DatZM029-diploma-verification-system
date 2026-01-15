@@ -9,11 +9,13 @@ import (
 	"net/http"
 	"os"
 	"path"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/hyperledger/fabric-gateway/pkg/client"
 	"github.com/hyperledger/fabric-gateway/pkg/hash"
 	"github.com/hyperledger/fabric-gateway/pkg/identity"
+	"golang.org/x/crypto/openpgp"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )
@@ -186,6 +188,19 @@ func (f *FabricService) ReadCredential(id string) (*Credential, error) {
 		return nil, err
 	}
 	return &cred, nil
+}
+
+// GetAllCredentials queries all credentials from the chaincode
+func (f *FabricService) GetAllCredentials() ([]*Credential, error) {
+	result, err := f.contract.EvaluateTransaction("GetAllCredentials")
+	if err != nil {
+		return nil, err
+	}
+	var creds []*Credential
+	if err := json.Unmarshal(result, &creds); err != nil {
+		return nil, err
+	}
+	return creds, nil
 }
 
 // CreateCredential submits a transaction to create a new credential
@@ -427,20 +442,75 @@ func main() {
 			return
 		}
 
-		// TODO: Add cryptographic signature verification with graduate's public key
-		if req.GraduateSignature == "" {
+		// Verify PGP signature
+		publicKeyArmored := credential.GraduatePublicKey
+		signatureArmored := req.GraduateSignature
+		messageToVerify := credential.ID
+
+		// Decode public key
+		keyring, err := openpgp.ReadArmoredKeyRing(strings.NewReader(publicKeyArmored))
+		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{
 				"verified": false,
-				"error":    "Graduate signature is required",
+				"error":    "Invalid public key format",
 			})
 			return
 		}
 
-		// Signature verified (simplified for now)
+		// Decode signature
+		signatureReader := strings.NewReader(signatureArmored)
+		messageReader := strings.NewReader(messageToVerify)
+
+		// Verify the signature
+		_, err = openpgp.CheckArmoredDetachedSignature(keyring, messageReader, signatureReader)
+		if err != nil {
+			c.JSON(http.StatusUnauthorized, gin.H{
+				"verified": false,
+				"error":    "Signature verification failed",
+				"details":  err.Error(),
+			})
+			return
+		}
+
 		c.JSON(http.StatusOK, gin.H{
 			"verified":   true,
 			"message":    "Graduate signature verified",
 			"credential": credential,
+		})
+	})
+
+	// GET /credentials - Get all credentials with optional university filter
+	router.GET("/credentials", func(c *gin.Context) {
+		universityFilter := c.Query("university")
+
+		// Get all credentials from blockchain
+		credentials, err := fs.GetAllCredentials()
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error":   "Failed to retrieve credentials",
+				"details": err.Error(),
+			})
+			return
+		}
+
+		// Filter by university ID or name if provided
+		if universityFilter != "" {
+			var filtered []*Credential
+			universityLower := strings.ToLower(universityFilter)
+			for _, cred := range credentials {
+				// Check both issuerID and university name in metadata
+				if cred.IssuerID == universityFilter ||
+					strings.ToLower(cred.DiplomaMetadata.UniversityName) == universityLower ||
+					strings.Contains(strings.ToLower(cred.DiplomaMetadata.UniversityName), universityLower) {
+					filtered = append(filtered, cred)
+				}
+			}
+			credentials = filtered
+		}
+
+		c.JSON(http.StatusOK, gin.H{
+			"credentials": credentials,
+			"count":       len(credentials),
 		})
 	})
 
