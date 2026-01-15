@@ -323,7 +323,7 @@ function idleModalSecondary() {
   logout();
 }
 
-const texts = ref({
+const texts = computed(() => ({
   confirmModalSecondaryDefaultLabel: i18n.t(
     'shell.notifications.logoutConfirmNo',
   ),
@@ -349,7 +349,7 @@ const texts = ref({
   systemFontsOn: i18n.t('shell.systemFontsOn'),
   touchModeOff: i18n.t('shell.touchModeOff'),
   touchModeOn: i18n.t('shell.touchModeOn'),
-});
+}));
 </script>
 <template>
   <div>

@@ -16,12 +16,15 @@ import useConfirmStore from '@/stores/useConfirmStore';
 import useNotifyStore from '@/stores/useNotifyStore';
 import { useRouter } from 'vue-router';
 import useAuthStore from '@/stores/useAuthStore';
+import { useWindowSize } from '@vueuse/core';
 
 const t = useI18n();
 const confirm = useConfirmStore();
 const notify = useNotifyStore();
 const router = useRouter();
 const authStore = useAuthStore();
+
+const { width } = useWindowSize();
 
 const listData = ref([]);
 const loading = ref(false);
@@ -31,7 +34,6 @@ async function loadList() {
   try {
     const res = await getCredentialList(authStore.session.institution.id);
     listData.value = res.data.credentials;
-    console.log(res);
   } catch (e) {
     console.error(e);
   } finally {
@@ -62,12 +64,14 @@ const listDisplay = computed(() =>
 async function revoke(itemId) {
   try {
     const credentialId = itemId.split('_')[1];
+    confirm.$state.confirmDialogState.primaryBusy = true;
     const res = await revokeCredential(credentialId);
-
-    if (res.status !== 200) {
+    confirm.$state.confirmDialogState.primaryBusy = false;
+    if (res.status !== 204) {
       return;
     }
     notify.pushSuccess(t.t('pages.credentials.revokeSuccess'));
+
     loadList();
   } catch (e) {
     console.error(e);
@@ -115,31 +119,46 @@ onMounted(() => {
       <template #customItem="item">
         <LxStack
           kind="compact"
-          orientation="horizontal"
+          :orientation="width > 1000 ? 'horizontal' : 'vertical'"
           verticalAlignment="center"
           mode="grid"
-          :horizontalConfig="['auto', '*', 'auto', 'auto']"
+          :horizontalConfig="['*', 'auto']"
+          :verticalConfig="width > 1000 ? ['*'] : ['*', 'auto']"
         >
-          <LxIcon
-            :value="item.credentialType === 'Diploma' ? 'diploma' : 'contract'"
-          />
-          <div style="padding-left: 0.75rem">
-            <p class="lx-primary">{{ item.diplomaMetadata.degreeName }}</p>
-            <!-- <p class="lx-secondary">{{ item.graduatePublicKey }}</p> -->
-          </div>
-          <LxStack
-            orientation="horizontal"
-            verticalAlignment="center"
-            kind="compact"
-            class="date-wrapper"
-          >
-            <LxIcon value="calendar" />
-            <p class="lx-secondary">
-              {{ lxDateUtils.formatDate(item.diplomaMetadata.issueDate) }}
-            </p>
-          </LxStack>
+          <div style="display: flex; align-items: center">
+            <LxIcon
+              :value="
+                item.credentialType === 'Diploma' ? 'diploma' : 'contract'
+              "
+            />
 
-          <LxStateDisplay :value="item?.status" :dictionary="statusDict" />
+            <div style="padding-left: 0.75rem">
+              <p class="lx-primary">{{ item.diplomaMetadata.degreeName }}</p>
+            </div>
+          </div>
+          <div
+            style="
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              align-items: center;
+              gap: 1rem;
+              width: 15rem;
+            "
+          >
+            <LxStack
+              orientation="horizontal"
+              verticalAlignment="center"
+              kind="compact"
+              class="date-wrapper"
+            >
+              <LxIcon value="calendar" />
+              <p class="lx-secondary">
+                {{ lxDateUtils.formatDate(item.diplomaMetadata.issueDate) }}
+              </p>
+            </LxStack>
+
+            <LxStateDisplay :value="item?.status" :dictionary="statusDict" />
+          </div>
         </LxStack>
       </template>
     </LxList>
