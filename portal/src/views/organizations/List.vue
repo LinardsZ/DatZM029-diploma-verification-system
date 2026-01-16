@@ -6,6 +6,7 @@ import {
   LxStateDisplay,
   LxIcon,
   lxDateUtils,
+  LxSearchableText,
 } from '@wntr/lx-ui';
 import {
   getCredentialList,
@@ -28,6 +29,7 @@ const { width } = useWindowSize();
 
 const listData = ref([]);
 const loading = ref(false);
+const searchString = ref('');
 
 async function loadList() {
   loading.value = true;
@@ -41,7 +43,7 @@ async function loadList() {
   }
 }
 
-const statusDict = [
+const statusDict = computed(() => [
   {
     value: 'Valid',
     displayName: t.t('pages.newCredential.form.valid'),
@@ -52,12 +54,14 @@ const statusDict = [
     displayName: t.t('pages.newCredential.form.invalid'),
     displayType: 'inactive',
   },
-];
+]);
 
 const listDisplay = computed(() =>
   listData.value.map((item) => ({
     ...item,
-    isActive: item.status == 'Valid',
+    isActive: item.status === 'Valid',
+    degreeName: item.diplomaMetadata.degreeName,
+    graduatePublicKeySearch: item.graduatePublicKey?.replaceAll('\n', ''),
   })),
 );
 
@@ -97,6 +101,9 @@ onMounted(() => {
       :items="listDisplay"
       :loading="loading"
       listType="1"
+      :hasSearch="true"
+      primaryAttribute="degreeName"
+      secondaryAttribute="graduatePublicKeySearch"
       :actionDefinitions="[
         {
           id: 'revoke',
@@ -113,8 +120,10 @@ onMounted(() => {
           kind: 'primary',
         },
       ]"
+      v-model:searchString="searchString"
+      :texts="t.tm('pages.credentials.list')"
       @actionClick="revokeItem"
-      @toolbar-action-click="router.push({ name: 'newCredential' })"
+      @toolbarActionClick="router.push({ name: 'newCredential' })"
     >
       <template #customItem="item">
         <LxStack
@@ -133,7 +142,12 @@ onMounted(() => {
             />
 
             <div style="padding-left: 0.75rem">
-              <p class="lx-primary">{{ item.diplomaMetadata.degreeName }}</p>
+              <p class="lx-primary">
+                <LxSearchableText
+                  :value="item.diplomaMetadata.degreeName"
+                  :searchString="searchString"
+                />
+              </p>
             </div>
           </div>
           <div

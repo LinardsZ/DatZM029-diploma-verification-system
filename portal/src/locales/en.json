@@ -248,7 +248,48 @@
       "revokeConfirmNo": "No",
       "revokeSuccess": "Document successfully revoked",
       "revokeError": "Failed to revoke the document. Try again",
-      "addCredential": "Add"
+      "addCredential": "Add",
+      "list": {
+        "clear": "Clear",
+        "placeholder": "Enter part of the title or description to search for records",
+        "notFoundSearch": "Not found:",
+        "noItems": "No records",
+        "noItemsDescription": "",
+        "loadMore": "Load more",
+        "search": "Search",
+        "items": {
+          "singular": "record",
+          "plural": "records",
+          "endingWith234": "records",
+          "endingWith1": "record"
+        },
+        "ofItems": {
+          "label": "Records",
+          "singular": "record",
+          "plural": "records",
+          "endingWith234": "records",
+          "endingWith1": "record"
+        },
+        "selected": {
+          "singular": "Selected",
+          "plural": "Selected",
+          "endingWith234": "Selected",
+          "endingWith1": "Selected"
+        },
+        "of": "of",
+        "clearSelected": "Clear selection",
+        "selectAllRows": "Select all",
+        "selectWholeGroup": "Select entire group",
+        "loadingError": "An error occurred while loading",
+        "reload": "Reload",
+        "collapse": "Collapse item",
+        "expand": "Expand item",
+        "openSearch": "Open search",
+        "closeSearch": "Close search",
+        "skipLinkLabel": "Skip list",
+        "skipLinkTitle": "Skip list",
+        "overflowMenu": "Open additional options"
+      }
     },
     "siteMap": {
       "title": "Site Map",
