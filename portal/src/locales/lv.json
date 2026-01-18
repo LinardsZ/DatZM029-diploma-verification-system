@@ -25,7 +25,25 @@
     "footer": {
       "footerText": "Portāls paredzēts diplomu un sertifikātu verificēšanai un pārbaudīšanai",
       "versionText": "Versija"
-    }
+    },
+    "userMenuTitle": "Lietotāja izvēlne",
+    "themeTitle": "Noformējuma izvēle",
+    "themeAuto": "Automātiskais režīms",
+    "themeLight": "Gaišais režīms",
+    "themeDark": "Tumšais režīms",
+    "themeContrast": "Kontrastainais režīms",
+    "animations": "Samazināt kustības",
+    "transparency": "Samazināt caurspīdīgumu",
+    "fonts": "Iekārtas fonti",
+    "touchMode": "Skārienjūtīgs režīms",
+    "reduceMotionOff": "Nē",
+    "reduceMotionOn": "Jā",
+    "reduceTransparencyOff": "Nē",
+    "reduceTransparencyOn": "Jā",
+    "systemFontsOff": "Nē",
+    "systemFontsOn": "Jā",
+    "touchModeOff": "Nē",
+    "touchModeOn": "Jā"
   },
   "pages": {
     "home": {
@@ -179,11 +197,23 @@
       "title": "Pilnā dokumentu verifikācija",
       "form": {
         "upload": "Dokument augšupielāde",
-        "sign": "Dokumentaa īpašnieka pārbaude",
+        "sign": "Dokumenta īpašnieka pārbaude",
         "view": "Dokumenta apskatīšana",
         "successLabel": "Verifikācija izdevās",
         "verifyOwner": "Pārbaudīt dokumenta īpašnieku",
-        "reset": "Verificēt citu dokumentu"
+        "reset": "Verificēt citu dokumentu",
+        "signMessageTitle": "Parakstiet šo ziņojumu ar PGP atslēgu:",
+        "successFinalSuccess": "Dokumenta paraksts veiksmīgi pārbaudīts",
+        "successFinalError": "Kļūda pārbaudot dokumenta parakstu",
+
+        "id": "ID",
+        "diplomaHash": "Diploma jaucējkods",
+        "universityName": "Iestādes nosaukums",
+        "degreeName": "Dokumenta nosaukums",
+        "issueDate": "Izdošanas datums",
+        "expiryDate": "Derīguma termiņš",
+        "status": "Statuss",
+        "credentialType": "Dokumenta veids"
       }
     },
 
@@ -199,7 +229,7 @@
       "authorizeButton": "Autorizēties"
     },
     "auth": {
-      "title": "Notiek apstrāde",
+      "title": "Autorizēšanās",
       "description": "Notiek apstrāde. Lūdzu, uzgaidiet!",
       "errors": {
         "unknownTitle": "Nezināma autorizācijas kļūda",
@@ -210,6 +240,66 @@
         "invalidRightsDescription": "Sazinieties ar sistēmas administratoru.",
         "invalidRequestTitle": "Kļūdains autorizācijas pieprasījums",
         "invalidRequestDescription": "Mēģiniet veikt atkārtotu autorizāciju."
+      },
+      "username": "Lietotājvārds",
+      "usernamePlaceholder": "Ievadiet lietotājvārdu",
+      "password": "Parole",
+      "passwordPlaceholder": "Ievadiet paroli",
+      "loginButton": "Autorizēties",
+      "usernameEmpty": "Lietotājvārds nevar būt tukšs",
+      "passwordEmpty": "Parole nevar būt tukša",
+      "authError": "Autorizācija neizdevās. Pārbaudiet savu lietotājvārdu un paroli un mēģiniet vēlreiz"
+    },
+    "credentials": {
+      "title": "Dokumenti",
+      "revoke": "Atcelt diplomu",
+      "revokeTitle": "Atcelt diplomu",
+      "revokeDesc": "Vai tiešām vēlaties atcelt šo diplomu?",
+      "revokeConfirmYes": "Jā",
+      "revokeConfirmNo": "Nē",
+      "revokeSuccess": "Dokuments veiksmīgi atcelts",
+      "revokeError": "Dokuments neizdevās atcelt. Mēginiet vēlreiz",
+      "addCredential": "Pievienot",
+      "list": {
+        "clear": "Notīrīt",
+        "placeholder": "Ievadiet nosaukuma vai apraksta daļu, lai sameklētu ierakstus",
+        "notFoundSearch": "Nav atrasts:",
+        "noItems": "Nav ierakstu",
+        "noItemsDescription": "",
+        "loadMore": "Ielādēt vēl",
+        "search": "Meklēt",
+        "items": {
+          "singular": "ieraksts",
+          "plural": "ieraksti",
+          "endingWith234": "ieraksti",
+          "endingWith1": "ieraksts"
+        },
+        "ofItems": {
+          "label": "Ieraksti",
+          "singular": "ieraksta",
+          "plural": "ierakstiem",
+          "endingWith234": "ierakstiem",
+          "endingWith1": "ieraksta"
+        },
+        "selected": {
+          "singular": "Izvēlēts",
+          "plural": "Izvēlēti",
+          "endingWith234": "Izvēlēti",
+          "endingWith1": "Izvēlēts"
+        },
+        "of": "no",
+        "clearSelected": "Attīrīt izvēles",
+        "selectAllRows": "Izvēlēties visu",
+        "selectWholeGroup": "Izvēlēties visu grupu",
+        "loadingError": "Notika ielādes kļūda",
+        "reload": "Ielādēt atkārtoti",
+        "collapse": "Sakļaut elementu",
+        "expand": "Izvērst elementu",
+        "openSearch": "Atvērt meklētāju",
+        "closeSearch": "Aizvērt meklētāju",
+        "skipLinkLabel": "Izlaist sarakstu",
+        "skipLinkTitle": "Izlaist sarakstu",
+        "overflowMenu": "Atvērt papildu iespējas"
       }
     },
     "siteMap": {

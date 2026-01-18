@@ -25,7 +25,25 @@
     "footer": {
         "footerText": "The portal is intended for verifying and checking diplomas and certificates",
         "versionText": "Version"
-    }
+    },
+    "userMenuTitle": "User menu",
+    "themeTitle": "Theme selection",
+    "themeAuto": "Automatic mode",
+    "themeLight": "Light mode",
+    "themeDark": "Dark mode",
+    "themeContrast": "High-contrast mode",
+    "animations": "Reduce motion",
+    "transparency": "Reduce transparency",
+    "fonts": "System fonts",
+    "touchMode": "Touch mode",
+    "reduceMotionOff": "No",
+    "reduceMotionOn": "Yes",
+    "reduceTransparencyOff": "No",
+    "reduceTransparencyOn": "Yes",
+    "systemFontsOff": "No",
+    "systemFontsOn": "Yes",
+    "touchModeOff": "No",
+    "touchModeOn": "Yes"
   },
   "pages": {
     "home": {
@@ -176,12 +194,24 @@
     "verificationFull": {
       "title": "Full Document Verification",
       "form": {
-      "upload": "Document Upload",
-      "sign": "Document Owner Verification",
-      "view": "Document Preview",
-      "successLabel": "Verification Successful",
-      "verifyOwner": "Verify Document Owner",
-      "reset": "Verify Another Document"
+        "upload": "Document Upload",
+        "sign": "Document Owner Verification",
+        "view": "Document Preview",
+        "successLabel": "Verification Successful",
+        "verifyOwner": "Verify Document Owner",
+        "reset": "Verify Another Document",
+        "signMessageTitle": "Sign this message with your PGP key:",
+        "successFinalSuccess": "Document signature successfully verified",
+        "successFinalError": "Error verifying the document signature",
+
+        "id": "ID",
+        "diplomaHash": "Diploma Hash",
+        "universityName": "Institution Name",
+        "degreeName": "Document Name",
+        "issueDate": "Issue Date",
+        "expiryDate": "Expiry Date",
+        "status": "Status",
+        "credentialType": "Document Type"
       }
     },
 
@@ -197,7 +227,7 @@
       "authorizeButton": "Log In"
     },
     "auth": {
-      "title": "Processing",
+      "title": "Authentication",
       "description": "Processing. Please wait!",
       "errors": {
         "unknownTitle": "Unknown authorization error",
@@ -208,6 +238,66 @@
         "invalidRightsDescription": "Contact the system administrator.",
         "invalidRequestTitle": "Invalid authorization request",
         "invalidRequestDescription": "Try to log in again."
+      },
+      "username": "Username",
+      "usernamePlaceholder": "Enter username",
+      "password": "Password",
+      "passwordPlaceholder": "Enter password",
+      "loginButton": "Log in",
+      "usernameEmpty": "Username cannot be empty",
+      "passwordEmpty": "Password cannot be empty",
+      "authError": "Authorization failed. Please check your username and password and try again."
+    },
+    "credentials": {
+      "title": "Documents",
+      "revoke": "Revoke diploma",
+      "revokeTitle": "Revoke diploma",
+      "revokeDesc": "Are you sure you want to revoke this diploma?",
+      "revokeConfirmYes": "Yes",
+      "revokeConfirmNo": "No",
+      "revokeSuccess": "Document successfully revoked",
+      "revokeError": "Failed to revoke the document. Try again",
+      "addCredential": "Add",
+      "list": {
+        "clear": "Clear",
+        "placeholder": "Enter part of the title or description to search for records",
+        "notFoundSearch": "Not found:",
+        "noItems": "No records",
+        "noItemsDescription": "",
+        "loadMore": "Load more",
+        "search": "Search",
+        "items": {
+          "singular": "record",
+          "plural": "records",
+          "endingWith234": "records",
+          "endingWith1": "record"
+        },
+        "ofItems": {
+          "label": "Records",
+          "singular": "record",
+          "plural": "records",
+          "endingWith234": "records",
+          "endingWith1": "record"
+        },
+        "selected": {
+          "singular": "Selected",
+          "plural": "Selected",
+          "endingWith234": "Selected",
+          "endingWith1": "Selected"
+        },
+        "of": "of",
+        "clearSelected": "Clear selection",
+        "selectAllRows": "Select all",
+        "selectWholeGroup": "Select entire group",
+        "loadingError": "An error occurred while loading",
+        "reload": "Reload",
+        "collapse": "Collapse item",
+        "expand": "Expand item",
+        "openSearch": "Open search",
+        "closeSearch": "Close search",
+        "skipLinkLabel": "Skip list",
+        "skipLinkTitle": "Skip list",
+        "overflowMenu": "Open additional options"
       }
     },
     "siteMap": {

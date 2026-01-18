@@ -18,6 +18,7 @@ export default defineStore(
     APP_CONFIG.publicUrl,
     APP_CONFIG.clientId,
     AUTH_SCOPE,
-    AUTH_KEY_TOKEN_SESSION
-  )
+    AUTH_KEY_TOKEN_SESSION,
+    // Custom state extension
+  ),
 );

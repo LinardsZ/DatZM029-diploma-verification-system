@@ -7,8 +7,8 @@ import {
   LxForm,
   LxRow,
   LxSteps,
-  LxTextInput,
   lxDateUtils,
+  LxTextArea,
 } from '@wntr/lx-ui';
 import { getFileHash } from '@/utils/generalUtils';
 import { useI18n } from 'vue-i18n';
@@ -29,11 +29,12 @@ const error = ref(false);
 const loading = ref(false);
 
 const stepModel = ref('default');
-const graduateSignature = ref(
-  'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1234...',
-);
+const graduateSignature = ref(null);
 const credentialId = ref(null);
 const fullDiplomaData = ref(null);
+
+const placeholder =
+  '-----BEGIN PGP SIGNED MESSAGE----- \nHash: SHA256\n\n xxxxxxxxxxxxxxx\n-----BEGIN PGP SIGNATURE-----\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n-----END PGP SIGNATURE-----';
 
 function getState(stepId) {
   if (stepModel.value === 'default') {
@@ -123,8 +124,7 @@ function resetFull() {
   error.value = false;
   file.value = null;
   stepModel.value = 'default';
-  graduateSignature.value =
-    'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1234...';
+  graduateSignature.value = null;
   credentialId.value = null;
   fullDiplomaData.value = null;
 }
@@ -138,10 +138,14 @@ async function verifyFull() {
     });
     fullDiplomaData.value = res.data.credential;
     stepModel.value = 'view';
-    notification.pushSuccess('Dokumenta paraksts veiksmīgi pārbaudīts.');
+    notification.pushSuccess(
+      t.t('pages.verificationFull.form.successFinalSuccess'),
+    );
   } catch (e) {
     console.error(e);
-    notification.pushError('Kļūda pārbaudot dokumenta parakstu.');
+    notification.pushError(
+      t.t('pages.verificationFull.form.successFinalError'),
+    );
   } finally {
     loading.value = false;
   }
@@ -186,58 +190,59 @@ async function verifyFull() {
           />
         </div>
         <div v-if="stepModel === 'sign'">
-          <LxTextInput v-model="graduateSignature" />
+          <div style="padding: 1rem 0 1rem 0">
+            <p style="font-weight: var(--font-weight-bold)">
+              {{ t.t('pages.verificationFull.form.signMessageTitle') }}
+            </p>
+            <p>{{ credentialId }}</p>
+          </div>
+          <LxTextArea
+            v-model="graduateSignature"
+            :placeholder="placeholder"
+            :rows="12"
+          />
         </div>
       </LxRow>
       <template v-if="stepModel === 'view'">
-        <LxRow label="id">
-          <p class="lx-data">{{ fullDiplomaData.id || "—" }}</p>
+        <LxRow :label="t.t('pages.verificationFull.form.id')">
+          <p class="lx-data">{{ fullDiplomaData.id || '—' }}</p>
         </LxRow>
-        <LxRow label="diplomaHash">
-          <p class="lx-data">{{ fullDiplomaData.diplomaHash || "—" }}</p>
+        <LxRow :label="t.t('pages.verificationFull.form.diplomaHash')">
+          <p class="lx-data">{{ fullDiplomaData.diplomaHash || '—' }}</p>
         </LxRow>
-        <LxRow label="graduatePublicKey">
-          <p class="lx-data">{{ fullDiplomaData.graduatePublicKey || "—" }}</p>
-        </LxRow>
-        <LxRow label="issuerId">
-          <p class="lx-data">{{ fullDiplomaData.issuerId || "—" }}</p>
-        </LxRow>
-        <LxRow label="issuerSignature">
-          <p class="lx-data">{{ fullDiplomaData.issuerSignature || "—" }}</p>
-        </LxRow>
-        <LxRow label="universityName">
+        <LxRow :label="t.t('pages.verificationFull.form.universityName')">
           <p class="lx-data">
-            {{ fullDiplomaData.diplomaMetadata.universityName || "—" }}
+            {{ fullDiplomaData.diplomaMetadata.universityName || '—' }}
           </p>
         </LxRow>
-        <LxRow label="degreeName">
+        <LxRow :label="t.t('pages.verificationFull.form.degreeName')">
           <p class="lx-data">
-            {{ fullDiplomaData.diplomaMetadata.degreeName || "—" }}
+            {{ fullDiplomaData.diplomaMetadata.degreeName || '—' }}
           </p>
         </LxRow>
-        <LxRow label="issueDate">
+        <LxRow :label="t.t('pages.verificationFull.form.issueDate')">
           <p class="lx-data">
             {{
               lxDateUtils.formatDate(
                 fullDiplomaData.diplomaMetadata.issueDate,
-              ) || "—"
+              ) || '—'
             }}
           </p>
         </LxRow>
-        <LxRow label="expiryDate">
+        <LxRow :label="t.t('pages.verificationFull.form.expiryDate')">
           <p class="lx-data">
             {{
               lxDateUtils.formatDate(
                 fullDiplomaData.diplomaMetadata.expiryDate,
-              ) || "—"
+              ) || '—'
             }}
           </p>
         </LxRow>
-        <LxRow label="status">
-          <p class="lx-data">{{ fullDiplomaData.status || "—" }}</p>
+        <LxRow :label="t.t('pages.verificationFull.form.status')">
+          <p class="lx-data">{{ fullDiplomaData.status || '—' }}</p>
         </LxRow>
-        <LxRow label="credentialType">
-          <p class="lx-data">{{ fullDiplomaData.credentialType || "—" }}</p>
+        <LxRow :label="t.t('pages.verificationFull.form.credentialType')">
+          <p class="lx-data">{{ fullDiplomaData.credentialType || '—' }}</p>
         </LxRow>
       </template>
       <template #footer>

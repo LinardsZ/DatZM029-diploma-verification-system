@@ -11,12 +11,13 @@ import (
 	"path"
 	"strings"
 
+	"github.com/ProtonMail/go-crypto/openpgp"
+	"github.com/ProtonMail/go-crypto/openpgp/clearsign"
+	"github.com/ProtonMail/go-crypto/openpgp/packet"
 	"github.com/gin-gonic/gin"
 	"github.com/hyperledger/fabric-gateway/pkg/client"
 	"github.com/hyperledger/fabric-gateway/pkg/hash"
 	"github.com/hyperledger/fabric-gateway/pkg/identity"
-	"golang.org/x/crypto/openpgp"
-	"golang.org/x/crypto/openpgp/clearsign"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )
@@ -446,6 +447,8 @@ func main() {
 		// Verify PGP signature
 		publicKeyArmored := credential.GraduatePublicKey
 
+		fmt.Println(publicKeyArmored)
+
 		// Decode public key
 		keyring, err := openpgp.ReadArmoredKeyRing(strings.NewReader(publicKeyArmored))
 		if err != nil {
@@ -464,11 +467,14 @@ func main() {
 			return
 		}
 
+		cfg := &packet.Config{}
+
 		// 3. Verify signature
 		_, err = openpgp.CheckDetachedSignature(
 			keyring,
 			strings.NewReader(string(block.Bytes)),
 			block.ArmoredSignature.Body,
+			cfg,
 		)
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{

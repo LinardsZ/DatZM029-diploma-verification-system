@@ -33,10 +33,23 @@ const routes = [
         component: () => import('@/views/Dashboard.vue'),
       },
       {
+        path: '/credentials',
+        name: 'credentials',
+        meta: {
+          title: 'pages.credentials.title',
+          state: 'authorized',
+        },
+        component: () => import('@/views/organizations/List.vue'),
+      },
+      {
         path: '/new-credential',
         name: 'newCredential',
         meta: {
           title: 'pages.newCredential.title',
+          state: 'authorized',
+          breadcrumbs: [
+            { text: 'pages.credentials.title', to: { name: 'credentials' } },
+          ],
         },
         component: () => import('@/views/organizations/NewCredential.vue'),
       },
@@ -52,7 +65,7 @@ const routes = [
         path: '/verification-full',
         name: 'verificationFull',
         meta: {
-          title: 'pages.verificationFull.title',
+          title: 'pages.verification.title',
         },
         component: () => import('@/views/VerificationFull.vue'),
       },

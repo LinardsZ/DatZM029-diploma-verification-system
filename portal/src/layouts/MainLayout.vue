@@ -45,28 +45,39 @@ const shellMode = computed(() => {
   return ret;
 });
 
-const nav = computed(() => [
-  {
-    label: i18n.t('pages.dashboard.title'),
-    icon: 'dashboard',
-    to: { name: 'dashboard' },
-  },
-  {
-    label: i18n.t('pages.newCredential.title'),
-    icon: 'add',
-    to: { name: 'newCredential' },
-  },
-  {
-    label: i18n.t('pages.verification.title'),
-    icon: 'search',
-    to: { name: 'verification' },
-  },
-  {
-    label: i18n.t('pages.verificationFull.title'),
-    icon: 'inspection',
-    to: { name: 'verificationFull' },
-  },
-]);
+const nav = computed(() => {
+  const authorized = [
+    {
+      label: i18n.t('pages.dashboard.title'),
+      icon: 'dashboard',
+      to: { name: 'dashboard' },
+    },
+    {
+      label: i18n.t('pages.credentials.title'),
+      icon: 'registry',
+      to: { name: 'credentials' },
+    },
+    {
+      label: i18n.t('pages.verification.title'),
+      icon: 'inspection',
+      to: { name: 'verificationFull' },
+    },
+  ];
+  const guest = [
+    {
+      label: i18n.t('pages.dashboard.title'),
+      icon: 'dashboard',
+      to: { name: 'dashboard' },
+    },
+    {
+      label: i18n.t('pages.verification.title'),
+      icon: 'inspection',
+      to: { name: 'verificationFull' },
+    },
+  ];
+
+  return authStore.isAuthorized ? authorized : guest;
+});
 
 const systemName = computed(() => i18n.t('title.shortName'));
 
@@ -311,6 +322,34 @@ function idleModalPrimary() {
 function idleModalSecondary() {
   logout();
 }
+
+const texts = computed(() => ({
+  confirmModalSecondaryDefaultLabel: i18n.t(
+    'shell.notifications.logoutConfirmNo',
+  ),
+  confirmModalPrimaryDefaultLabel: i18n.t(
+    'shell.notifications.logoutConfirmYes',
+  ),
+  logOut: i18n.t('shell.notifications.logoutConfirmTitle'),
+  userMenuTitle: i18n.t('shell.userMenuTitle'),
+  themeTitle: i18n.t('shell.themeTitle'),
+  themeAuto: i18n.t('shell.themeAuto'),
+  themeLight: i18n.t('shell.themeLight'),
+  themeDark: i18n.t('shell.themeDark'),
+  themeContrast: i18n.t('shell.themeContrast'),
+  animations: i18n.t('shell.animations'),
+  transparency: i18n.t('shell.transparency'),
+  fonts: i18n.t('shell.fonts'),
+  touchMode: i18n.t('shell.touchMode'),
+  reduceMotionOff: i18n.t('shell.reduceMotionOff'),
+  reduceMotionOn: i18n.t('shell.reduceMotionOn'),
+  reduceTransparencyOff: i18n.t('shell.reduceTransparencyOff'),
+  reduceTransparencyOn: i18n.t('shell.reduceTransparencyOn'),
+  systemFontsOff: i18n.t('shell.systemFontsOff'),
+  systemFontsOn: i18n.t('shell.systemFontsOn'),
+  touchModeOff: i18n.t('shell.touchModeOff'),
+  touchModeOn: i18n.t('shell.touchModeOn'),
+}));
 </script>
 <template>
   <div>
@@ -351,6 +390,7 @@ function idleModalSecondary() {
         :hideNavBar="!viewStore?.isNavBarShown"
         :headerNavDisable="viewStore.blockNav"
         :hideHeaderText="!viewStore?.isHeaderShown"
+        :texts="texts"
         @update:selected-language="changeLang"
         @confirmModalClosed="confirmModalClosed"
         @go-home="goHome"
@@ -372,20 +412,20 @@ function idleModalSecondary() {
             <div class="footer-sitemap-left">
               <div class="footer-logo">
                 <LxIcon value="link" />
-                <div>{{ i18n.t("title.fullName") }}</div>
+                <div>{{ i18n.t('title.fullName') }}</div>
               </div>
               <div class="footer-sitemap-text">
-                {{ i18n.t("title.subheader") }}
+                {{ i18n.t('title.subheader') }}
               </div>
             </div>
             <div class="footer-sitemap-right">
               <p class="footer-sitemap-text">
-                {{ i18n.t("shell.footer.footerText") }}
+                {{ i18n.t('shell.footer.footerText') }}
               </p>
               <p class="footer-sitemap-text">
-                {{ i18n.t("shell.footer.versionText") }} 1.0.0
+                {{ i18n.t('shell.footer.versionText') }} 1.0.0
                 {{
-                  lxDateUtils.formatDate(APP_CONFIG?.buildDate) || "10.01.2026."
+                  lxDateUtils.formatDate(APP_CONFIG?.buildDate) || '10.01.2026.'
                 }}
               </p>
             </div>
