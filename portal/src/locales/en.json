@@ -194,15 +194,24 @@
     "verificationFull": {
       "title": "Full Document Verification",
       "form": {
-      "upload": "Document Upload",
-      "sign": "Document Owner Verification",
-      "view": "Document Preview",
-      "successLabel": "Verification Successful",
-      "verifyOwner": "Verify Document Owner",
-      "reset": "Verify Another Document",
-      "signMessageTitle": "Sign this message with your PGP key:",
-      "successFinalSuccess": "Document signature successfully verified",
-      "successFinalError": "Error verifying the document signature"
+        "upload": "Document Upload",
+        "sign": "Document Owner Verification",
+        "view": "Document Preview",
+        "successLabel": "Verification Successful",
+        "verifyOwner": "Verify Document Owner",
+        "reset": "Verify Another Document",
+        "signMessageTitle": "Sign this message with your PGP key:",
+        "successFinalSuccess": "Document signature successfully verified",
+        "successFinalError": "Error verifying the document signature",
+
+        "id": "ID",
+        "diplomaHash": "Diploma Hash",
+        "universityName": "Institution Name",
+        "degreeName": "Document Name",
+        "issueDate": "Issue Date",
+        "expiryDate": "Expiry Date",
+        "status": "Status",
+        "credentialType": "Document Type"
       }
     },
 
@@ -218,7 +227,7 @@
       "authorizeButton": "Log In"
     },
     "auth": {
-      "title": "Processing",
+      "title": "Authentication",
       "description": "Processing. Please wait!",
       "errors": {
         "unknownTitle": "Unknown authorization error",

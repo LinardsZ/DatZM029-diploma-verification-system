@@ -204,32 +204,23 @@ async function verifyFull() {
         </div>
       </LxRow>
       <template v-if="stepModel === 'view'">
-        <LxRow label="id">
+        <LxRow :label="t.t('pages.verificationFull.form.id')">
           <p class="lx-data">{{ fullDiplomaData.id || '—' }}</p>
         </LxRow>
-        <LxRow label="diplomaHash">
+        <LxRow :label="t.t('pages.verificationFull.form.diplomaHash')">
           <p class="lx-data">{{ fullDiplomaData.diplomaHash || '—' }}</p>
         </LxRow>
-        <!-- <LxRow label="graduatePublicKey">
-          <p class="lx-data">{{ fullDiplomaData.graduatePublicKey || '—' }}</p>
-        </LxRow> -->
-        <LxRow label="issuerId">
-          <p class="lx-data">{{ fullDiplomaData.issuerId || '—' }}</p>
-        </LxRow>
-        <LxRow label="issuerSignature">
-          <p class="lx-data">{{ fullDiplomaData.issuerSignature || '—' }}</p>
-        </LxRow>
-        <LxRow label="universityName">
+        <LxRow :label="t.t('pages.verificationFull.form.universityName')">
           <p class="lx-data">
             {{ fullDiplomaData.diplomaMetadata.universityName || '—' }}
           </p>
         </LxRow>
-        <LxRow label="degreeName">
+        <LxRow :label="t.t('pages.verificationFull.form.degreeName')">
           <p class="lx-data">
             {{ fullDiplomaData.diplomaMetadata.degreeName || '—' }}
           </p>
         </LxRow>
-        <LxRow label="issueDate">
+        <LxRow :label="t.t('pages.verificationFull.form.issueDate')">
           <p class="lx-data">
             {{
               lxDateUtils.formatDate(
@@ -238,7 +229,7 @@ async function verifyFull() {
             }}
           </p>
         </LxRow>
-        <LxRow label="expiryDate">
+        <LxRow :label="t.t('pages.verificationFull.form.expiryDate')">
           <p class="lx-data">
             {{
               lxDateUtils.formatDate(
@@ -247,10 +238,10 @@ async function verifyFull() {
             }}
           </p>
         </LxRow>
-        <LxRow label="status">
+        <LxRow :label="t.t('pages.verificationFull.form.status')">
           <p class="lx-data">{{ fullDiplomaData.status || '—' }}</p>
         </LxRow>
-        <LxRow label="credentialType">
+        <LxRow :label="t.t('pages.verificationFull.form.credentialType')">
           <p class="lx-data">{{ fullDiplomaData.credentialType || '—' }}</p>
         </LxRow>
       </template>

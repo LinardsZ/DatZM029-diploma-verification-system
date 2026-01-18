@@ -204,7 +204,16 @@
         "reset": "Verificēt citu dokumentu",
         "signMessageTitle": "Parakstiet šo ziņojumu ar PGP atslēgu:",
         "successFinalSuccess": "Dokumenta paraksts veiksmīgi pārbaudīts",
-        "successFinalError": "Kļūda pārbaudot dokumenta parakstu"
+        "successFinalError": "Kļūda pārbaudot dokumenta parakstu",
+
+        "id": "ID",
+        "diplomaHash": "Diploma jaucējkods",
+        "universityName": "Iestādes nosaukums",
+        "degreeName": "Dokumenta nosaukums",
+        "issueDate": "Izdošanas datums",
+        "expiryDate": "Derīguma termiņš",
+        "status": "Statuss",
+        "credentialType": "Dokumenta veids"
       }
     },
 
